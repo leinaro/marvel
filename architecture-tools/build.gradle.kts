@@ -1,20 +1,18 @@
 plugins {
-  id("com.android.application")
+  id("com.android.library")
   id("org.jetbrains.kotlin.android")
 }
 
 android {
-  namespace = "com.leinaro.marvel"
-  compileSdk = 33
+  namespace = "com.leinaro.android_architecture_tools"
+  compileSdk = 32
 
   defaultConfig {
-    applicationId = "com.leinaro.marvel"
     minSdk = 23
-    targetSdk = 33
-    versionCode = 1
-    versionName = "1.0"
+    targetSdk = 32
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles("consumer-rules.pro")
   }
 
   buildTypes {
@@ -30,12 +28,6 @@ android {
   kotlinOptions {
     jvmTarget = "1.8"
   }
-  buildFeatures {
-    compose = true
-  }
-  composeOptions {
-    kotlinCompilerExtensionVersion = "1.3.1"
-  }
 }
 
 dependencies {
@@ -44,13 +36,13 @@ dependencies {
   implementation("androidx.appcompat:appcompat:1.5.1")
   implementation("com.google.android.material:material:1.6.1")
 
-  //Compose
-  implementation("androidx.activity:activity-compose:1.5.1")
-  implementation("androidx.compose.material:material:1.2.1")
-  implementation("androidx.compose.ui:ui-tooling:1.2.1")
-  implementation("androidx.compose.ui:ui:1.2.1")
-  implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
-  implementation("com.google.accompanist:accompanist-swiperefresh:0.26.3-beta")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+  implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+
+  implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
+  implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
 
 
   testImplementation("junit:junit:4.13.2")
