@@ -34,24 +34,24 @@ android {
     compose = true
   }
   composeOptions {
-    kotlinCompilerExtensionVersion = "1.3.1"
+    kotlinCompilerExtensionVersion = "1.2.0-beta01"
+    // kotlinCompilerExtensionVersion = "1.3.1"
   }
 }
 
 dependencies {
 
-  implementation("androidx.core:core-ktx:1.9.0")
+  implementation("androidx.core:core-ktx:1.7.0")
   implementation("androidx.appcompat:appcompat:1.5.1")
   implementation("com.google.android.material:material:1.6.1")
 
   //Compose
-  implementation("androidx.activity:activity-compose:1.5.1")
-  implementation("androidx.compose.material:material:1.2.1")
-  implementation("androidx.compose.ui:ui-tooling:1.2.1")
-  implementation("androidx.compose.ui:ui:1.2.1")
-  implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
-  implementation("com.google.accompanist:accompanist-swiperefresh:0.26.3-beta")
-
+  implementation("androidx.activity:activity-compose:1.5.0")
+  implementation("androidx.compose.material:material:1.1.1")
+  implementation("androidx.compose.ui:ui-tooling:1.1.1")
+  implementation("androidx.compose.ui:ui:1.1.1")
+  implementation("androidx.compose.ui:ui-tooling-preview:1.1.1")
+  //implementation("com.google.accompanist:accompanist-swiperefresh:0.26.3-beta")
 
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.3")

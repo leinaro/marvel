@@ -5,7 +5,7 @@ plugins {
 
 android {
   namespace = "com.leinaro.apis"
-  compileSdk = 32
+  compileSdk = 33
 
   defaultConfig {
     minSdk = 23
@@ -32,8 +32,8 @@ android {
 
 dependencies {
 
-  implementation("androidx.core:core-ktx:1.9.0")
-  implementation("androidx.appcompat:appcompat:1.5.1")
+  // implementation("androidx.core:core-ktx:1.9.0")
+  // implementation("androidx.appcompat:appcompat:1.5.1")
   implementation("com.google.android.material:material:1.6.1")
 
   // Retrofit
