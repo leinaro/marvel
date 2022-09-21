@@ -1,17 +1,17 @@
 plugins {
   id("leinaro-android-library")
+  kotlin("kapt")
   id("org.jetbrains.kotlin.android")
+}
+
+hilt {
+  enableExperimentalClasspathAggregation = true
 }
 
 android {
   namespace = "com.leinaro.characters_list"
-  //compileSdk = 32
 
   defaultConfig {
-    //minSdk = 23
-    //targetSdk = 32
-
-    //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
   }
 
@@ -31,8 +31,10 @@ android {
 }
 
 dependencies {
-  // implementation("androidx.core:core-ktx:1.9.0")
-  // implementation("androidx.appcompat:appcompat:1.5.1")
+  implementation(project(":architecture-tools"))
+  implementation(project(":domain"))
+  implementation(project(":data"))
+
   implementation("com.google.android.material:material:1.6.1")
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.3")

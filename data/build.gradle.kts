@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-  namespace = "com.leinaro.domain"
+  namespace = "com.leinaro.data"
   compileSdk = 32
 
   defaultConfig {
@@ -31,7 +31,6 @@ android {
 }
 
 dependencies {
-  implementation(project(":data"))
 
   implementation("androidx.core:core-ktx:1.7.0")
   implementation("androidx.appcompat:appcompat:1.5.1")

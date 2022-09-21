@@ -3,36 +3,38 @@ package plugins
 import AndroidConfig
 import Dependencies
 import Versions
-import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.BaseExtension
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.the
 
-class LeinaroAndroidLibraryPlugin : Plugin<Project> {
+class LeinaroAndroidCommonPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     target.configureAndroidPlugins()
     target.configureAndroidDependencies()
 
-    target.the<LibraryExtension>().apply {
-      compileSdk = AndroidConfig.compileSDK
-      buildFeatures {
-        compose = true
-      }
-      composeOptions {
-        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
-      }
+    target.the<BaseExtension>().apply {
+      compileSdkVersion(AndroidConfig.compileSDK)
+
+      buildFeatures.compose = true
       defaultConfig {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targerSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
       }
+      compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+      }
+      composeOptions.kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
     }
   }
 }
 
 private fun Project.configureAndroidPlugins() {
-  plugins.apply("com.android.library")
+  plugins.apply("com.android.application")
   plugins.apply("org.jetbrains.kotlin.android")
   plugins.apply("dagger.hilt.android.plugin")
   plugins.apply("kotlin-android")
