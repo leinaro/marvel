@@ -53,7 +53,7 @@ private fun Project.configureAndroidDependencies() = dependencies {
   add("implementation", Dependencies.accompanistSwipeRefresh)
   // Ktx
   add("implementation", Dependencies.androidxActivityKtx)
-  add("implementation", Dependencies.androidxFragmentKtx)
+  //add("implementation", Dependencies.androidxFragmentKtx)
   // Hilt
   add("implementation", Dependencies.hiltAndroid)
   add("kapt", Dependencies.hiltCompiler)

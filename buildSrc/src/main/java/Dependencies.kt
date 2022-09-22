@@ -12,16 +12,18 @@ object Dependencies {
   val androidxComposeUi by lazy { "androidx.compose.ui:ui:${Versions.compose}" }
   val androidxComposeToolingPreview by lazy { "androidx.compose.ui:ui-tooling-preview:${Versions.compose}" }
   val accompanistSwipeRefresh by lazy { "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistSwipeRefresh}" }
+  val viewModelCompose by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.viewModelCompose}" }
   // endregion
 
   // region Ktx
   val androidxActivityKtx by lazy { "androidx.activity:activity-ktx:${Versions.androidxActivityKtx}" }
-  val androidxFragmentKtx by lazy { "androidx.fragment:fragment-ktx:${Versions.androidxFragmentKtx}" }
+  //val androidxFragmentKtx by lazy { "androidx.fragment:fragment-ktx:${Versions.androidxFragmentKtx}" }
   //endregion
 
   // region Hilt
   val hiltAndroid by lazy { "com.google.dagger:hilt-android:${Versions.hilt}" }
   val hiltCompiler by lazy { "com.google.dagger:hilt-compiler:${Versions.hilt}" }
+//  androidx.hilt:hilt-navigation-compose:1.0.0-alpha02
   // endregion
 
   val timber by lazy { "com.jakewharton.timber:timber:${Versions.timber}" }

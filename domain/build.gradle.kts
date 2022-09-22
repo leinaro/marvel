@@ -1,5 +1,6 @@
 plugins {
-  id("com.android.library")
+  //id("com.android.library")
+  id("leinaro-android-library")
   id("org.jetbrains.kotlin.android")
 }
 

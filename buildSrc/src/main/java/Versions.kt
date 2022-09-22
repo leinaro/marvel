@@ -2,7 +2,8 @@ object Versions {
   const val androidxCoreKtx = "1.7.0"
   const val androidxAppCompat = "1.5.1"
   const val androidxActivityKtx = "1.4.0"
-  const val androidxFragmentKtx = "1.4.1"
+
+  //const val androidxFragmentKtx = "1.4.1"
   const val hilt = "2.38.1"
 
   const val gradlePlugin = "4.2.1"
@@ -17,5 +18,6 @@ object Versions {
   // compose
   const val compose = "1.1.1"
   const val activityCompose = "1.5.0"
+  const val viewModelCompose = "2.5.1"
   const val accompanistSwipeRefresh = "0.25.0"
 }

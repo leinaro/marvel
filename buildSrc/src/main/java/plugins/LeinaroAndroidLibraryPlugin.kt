@@ -49,9 +49,10 @@ private fun Project.configureAndroidDependencies() = dependencies {
   add("implementation", Dependencies.androidxComposeUi)
   add("implementation", Dependencies.androidxComposeToolingPreview)
   add("implementation", Dependencies.accompanistSwipeRefresh)
+  add("implementation", Dependencies.viewModelCompose)
   // Ktx
   add("implementation", Dependencies.androidxActivityKtx)
-  add("implementation", Dependencies.androidxFragmentKtx)
+  //add("implementation", Dependencies.androidxFragmentKtx)
   // Hilt
   add("implementation", Dependencies.hiltAndroid)
   add("kapt", Dependencies.hiltCompiler)

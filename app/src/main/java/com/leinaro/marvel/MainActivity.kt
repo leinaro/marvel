@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.leinaro.characters_list.CharactersListScreen
 import com.leinaro.marvel.ui.theme.MarvelTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +20,8 @@ class MainActivity : ComponentActivity() {
       MarvelTheme {
         // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-          Greeting("Android")
+          //Greeting("Android")
+          CharactersListScreen()
         }
       }
     }
@@ -35,6 +37,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
   MarvelTheme {
-    Greeting("Android")
+    CharactersListScreen()
   }
 }
