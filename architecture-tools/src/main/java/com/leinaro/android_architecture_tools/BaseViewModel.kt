@@ -1,5 +1,8 @@
 package com.leinaro.android_architecture_tools
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
@@ -9,28 +12,27 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<T> : ViewModel() {
+abstract class BaseViewModel<T>(defaultValue: T) : ViewModel() {
 
-  private val viewData = MutableStateFlow<ViewDataState<T>?>(null)
-  private val errorViewData = MutableStateFlow<ViewDataState<ErrorViewData>?>(null)
-  private val eventChannel = Channel<ViewEventState<T>>(Channel.BUFFERED)
+  private var _uiState by mutableStateOf(defaultValue)
+  private val errorViewData = MutableStateFlow<ErrorViewData?>(null)
+  private val eventChannel = Channel<T>(Channel.BUFFERED)
   private val eventsFlow = eventChannel.receiveAsFlow()
 
-  fun getViewData(): StateFlow<ViewDataState<T>?> = viewData
-  fun getErrorViewData(): StateFlow<ViewDataState<ErrorViewData>?> = errorViewData
-  fun getEventsFlow(): Flow<ViewEventState<T>?> = eventsFlow
+  fun getUiState(): T = _uiState
+  fun getErrorViewData(): StateFlow<ErrorViewData?> = errorViewData
+  fun getEventsFlow(): Flow<T?> = eventsFlow
 
-  fun setValue(value: T, handler: ViewHandler<out T, out BaseViewModel<T>>) {
+  fun setValue(value: T) {
     viewModelScope.launch {
-      viewData.emit(ViewDataState(value, handler))
+      _uiState = value
     }
   }
 
   fun setErrorValue(
     value: ErrorViewData,
-    handler: ViewHandler<ErrorViewData, BaseViewModel<ErrorViewData>>,
   ) {
-    errorViewData.value = ViewDataState(value, handler)
+    errorViewData.value = value
   }
 
   open fun showError(throwable: Throwable) {
@@ -39,11 +41,9 @@ abstract class BaseViewModel<T> : ViewModel() {
 
   suspend fun sendEvent(
     viewEvent: ViewEvent,
-    handler: ViewHandler<out ViewEvent, out BaseViewModel<T>>
   ) {
-    eventChannel.send(ViewEventState(viewEvent, handler))
+    // eventChannel.send(viewEvent)
   }
-
 }
 
 sealed class ViewEvent {

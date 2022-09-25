@@ -39,22 +39,21 @@ private fun Project.configureAndroidPlugins() {
   plugins.apply("dagger.hilt.android.plugin")
   plugins.apply("kotlin-android")
   plugins.apply("kotlin-kapt")
+  plugins.apply("de.mannodermaus.android-junit5")
 }
 
 private fun Project.configureAndroidDependencies() = dependencies {
   add("implementation", Dependencies.androidxCoreKtx)
   add("implementation", Dependencies.androidxAppCompat)
-  // Compose
-  add("implementation", Dependencies.androidxActivityCompose)
-  add("implementation", Dependencies.androidxComposeMaterial)
-  add("implementation", Dependencies.androidxComposeUiTooling)
-  add("implementation", Dependencies.androidxComposeUi)
-  add("implementation", Dependencies.androidxComposeToolingPreview)
-  add("implementation", Dependencies.accompanistSwipeRefresh)
+  addComposeDependencies()
+
   // Ktx
   add("implementation", Dependencies.androidxActivityKtx)
-  //add("implementation", Dependencies.androidxFragmentKtx)
-  // Hilt
-  add("implementation", Dependencies.hiltAndroid)
-  add("kapt", Dependencies.hiltCompiler)
+
+  addHiltDependencies()
+
+  // Coil
+  add("implementation", Dependencies.coil)
+
+  addTestDependencies()
 }

@@ -17,4 +17,5 @@ dependencies {
   implementation("com.android.tools.build:gradle:7.2.2")
   implementation(gradleApi())
   implementation(localGroovy())
+  implementation("com.squareup:javapoet:1.13.0") // <-- added this
 }

@@ -1,18 +1,18 @@
 package com.leinaro.domain.usecases
 
+import com.leinaro.data.MarvelCharacter
+import com.leinaro.domain.Repository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 interface GetCharactersUseCase {
-  fun execute(): Flow<List<Character>>
+  fun execute(): Flow<List<MarvelCharacter>>
 }
 
-class GetCharactersUseCaseImpl : GetCharactersUseCase {
-  override fun execute(): Flow<List<Character>> {
-    //TODO("Not yet implemented")
-    return flow {
-      emit(emptyList())
-    }
+class GetCharactersUseCaseImpl @Inject constructor(
+  private val repository: Repository
+) : GetCharactersUseCase {
+  override fun execute(): Flow<List<MarvelCharacter>> {
+    return repository.getCharacters()
   }
-
 }
