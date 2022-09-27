@@ -1,5 +1,7 @@
 plugins {
   id("leinaro-android-common")
+  id("jacoco")
+  id("plugins.jacoco-report")
 }
 
 android {
@@ -34,7 +36,30 @@ dependencies {
 
   implementation(project(":characters-list"))
 
- // testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.3")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }
+
+tasks.withType<Test> {
+  configure<JacocoTaskExtension> {
+    isIncludeNoLocationClasses = true
+    excludes = listOf("jdk.internal.*")
+  }
+}
+
+extra.set(
+  JacocoCoverage.coverageDataExtra,
+  CoverageTaskParam(
+    buildDir,
+    "testDebugUnitTest",
+    Coverage(
+      instructions = 80.0,
+      lines = 60.0,
+      complexity = 60.0,
+      methods = 60.0,
+      classes = 60.0
+    ),
+    emptyList(),
+    emptyList()
+  )
+)

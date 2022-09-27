@@ -58,7 +58,7 @@ internal class CharactersListViewModelTest {
     subject.getCharacters()
 
     // then
-    verify(exactly = 1) { getCharactersUseCase.execute() }
+    verify(exactly = 2) { getCharactersUseCase.execute() }
   }
 }
 /*

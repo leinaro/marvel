@@ -26,4 +26,5 @@ object Versions {
 
   // tests
   const val mockk = "1.12.4"
+  const val jacoco = "0.8.8"
 }

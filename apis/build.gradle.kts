@@ -1,6 +1,10 @@
 plugins {
-  id("com.android.library")
+  id("leinaro-kotlin-library")
   id("org.jetbrains.kotlin.android")
+}
+
+hilt {
+  enableExperimentalClasspathAggregation = true
 }
 
 android {

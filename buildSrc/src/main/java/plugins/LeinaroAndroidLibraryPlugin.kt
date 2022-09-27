@@ -37,20 +37,19 @@ private fun Project.configureAndroidPlugins() {
   plugins.apply("dagger.hilt.android.plugin")
   plugins.apply("kotlin-android")
   plugins.apply("kotlin-kapt")
+  plugins.apply("jacoco")
+  plugins.apply("plugins.jacoco-report")
 }
 
 private fun Project.configureAndroidDependencies() = dependencies {
   add("implementation", Dependencies.androidxCoreKtx)
   add("implementation", Dependencies.androidxAppCompat)
-  addComposeDependencies()
 
   // Ktx
   add("implementation", Dependencies.androidxActivityKtx)
 
+  addComposeDependencies()
+  addCoilDependencies()
   addHiltDependencies()
-
-  // Coil
-  add("implementation", Dependencies.coil)
-
   addTestDependencies()
 }

@@ -11,9 +11,8 @@ buildscript {
     classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
     classpath("com.google.dagger:hilt-android-gradle-plugin:2.43.2")
     classpath("com.squareup:javapoet:1.13.0")
-    //  classpath("de.mannodermaus.android-junit5:1.8.2.1")
     classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1")
-
+    classpath("org.jacoco:org.jacoco.core:${Versions.jacoco}")
   }
 }
 
@@ -23,6 +22,8 @@ allprojects {
     mavenCentral()
   }
 }
+
+plugins.apply("plugins.jacoco-global-report")
 /*
 fun subprojectsInclude(vararg includes: String): Set<File> {
   return subprojects.flatMap {

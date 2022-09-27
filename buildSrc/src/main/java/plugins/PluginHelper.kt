@@ -3,6 +3,11 @@ package plugins
 import Dependencies
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
+fun DependencyHandlerScope.addCoilDependencies() {
+// Coil
+  add("implementation", Dependencies.coil)
+}
+
 fun DependencyHandlerScope.addHiltDependencies() {
   // Hilt
   add("implementation", Dependencies.hiltAndroid)
