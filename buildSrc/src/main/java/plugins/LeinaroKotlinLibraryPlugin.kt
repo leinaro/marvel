@@ -2,7 +2,6 @@ package plugins
 
 import AndroidConfig
 import Dependencies
-import Versions
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -16,12 +15,7 @@ class LeinaroKotlinLibraryPlugin : Plugin<Project> {
 
     target.the<LibraryExtension>().apply {
       compileSdk = AndroidConfig.compileSDK
-      buildFeatures {
-        compose = true
-      }
-      composeOptions {
-        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
-      }
+
       defaultConfig {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targerSdk
