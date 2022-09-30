@@ -40,6 +40,11 @@ private fun Project.configureAndroidDependencies() = dependencies {
   // Ktx
   add("implementation", Dependencies.androidxActivityKtx)
 
+  // Loggin Interceptors
+  //add("implementation", "com.squareup.okhttp3:logging-interceptor:4.2.1")
+  add("debugImplementation", "com.github.chuckerteam.chucker:library:3.5.2")
+  add("releaseImplementation", "com.github.chuckerteam.chucker:library-no-op:3.5.2")
+
   addHiltDependencies()
   addTestDependencies()
 }

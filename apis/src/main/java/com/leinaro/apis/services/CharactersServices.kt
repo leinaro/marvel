@@ -1,13 +1,12 @@
 package com.leinaro.apis.services
 
 import retrofit2.http.GET
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface CharactersServices {
 
   @GET("/v1/public/characters")
-  suspend fun fetchesListsOfCharacters(@QueryMap queries: Map<String,String>): MarvelCharactersResponse
+  suspend fun fetchesListsOfCharacters(@QueryMap queries: Map<String, String>): MarvelCharactersResponse
 }
 
 data class MarvelCharactersResponse(
@@ -16,7 +15,6 @@ data class MarvelCharactersResponse(
   val copyright: String,
   val attributionText: String,
   val data: MarvelDataResponse,
-  val results: List<MarvelCharacterResponse>,
 )
 
 data class MarvelDataResponse(
@@ -24,6 +22,7 @@ data class MarvelDataResponse(
   val limit: Int,
   val total: Int,
   val count: Int,
+  val results: List<MarvelCharacterResponse>?,
 )
 
 data class MarvelCharacterResponse(
@@ -36,6 +35,7 @@ data class Thumbnail(
   val path: String,
   val extension: String,
 )
+
 /*{
   "code": 200,
   "status": "Ok",

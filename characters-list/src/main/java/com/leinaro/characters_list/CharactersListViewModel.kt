@@ -33,18 +33,19 @@ class CharactersListViewModel @Inject constructor(
     viewModelScope.launch(dispatchers) {
       getCharactersUseCase.execute()
         .collect {
+          println("iarl ---- " + it)
           when (it) {
             is ApiResponse.Success -> {
               //characters ->
               val characters = it.data.orEmpty()
               val value = CharactersListUiState.ShowCharactersListUiState(
                 characters = characters.map {
-                  CharacterUiModel(it.id, it.name, it.thumbnailUrl)
+                  CharacterUiModel(it.id, it.name.orEmpty(), it.thumbnailUrl.orEmpty())
                 })
               setValue(value)
             }
             is ApiResponse.Error -> {
-
+              println("iarl ---- " + it._message)
             }
             is ApiResponse.Loading -> {
 

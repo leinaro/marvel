@@ -6,6 +6,8 @@ import com.leinaro.data.MarvelCharacter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import javax.inject.Inject
 
 sealed class ApiStatus {
@@ -39,12 +41,25 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
   override fun getCharacters(): Flow<ApiResponse<List<MarvelCharacter>>> = flow {
     emit(ApiResponse.Loading(isLoading = true))
-    val response = charactersServices.fetchesListsOfCharacters(mapOf("apikey" to ""))
 
-    emit(ApiResponse.Success(response.results.toUiModel()))
+    val md5 = md5(ts + privateKey + apiKey)
+    val response =
+      charactersServices.fetchesListsOfCharacters(
+        mapOf(
+          "apikey" to apiKey,
+          "ts" to ts,
+          "hash" to md5,
+        )
+      )
+
+    println("iarl ---- *" + response)
+
+    emit(ApiResponse.Success(response.data.results?.toUiModel()))
     emit(ApiResponse.Loading(isLoading = false))
   }.catch {
-    emit(ApiResponse.Error(null, it.message))
+    println("iarl ---- **" + it)
+    println("iarl ---- **" + this)
+    emit(ApiResponse.Error(null, it?.message))
     emit(ApiResponse.Loading(isLoading = false))
   }
   /*  override fun getCharacters() = flow {
@@ -70,6 +85,28 @@ class RepositoryImpl @Inject constructor(
   }*/
 }
 
+fun md5(s: String): String {
+  try {
+    // Create MD5 Hash
+    val digest = MessageDigest.getInstance("MD5")
+    digest.update(s.toByteArray())
+    val messageDigest = digest.digest()
+
+    // Create Hex String
+    val hexString = StringBuffer()
+    for (i in messageDigest.indices) hexString.append(
+      Integer.toHexString(
+        0xFF and messageDigest[i]
+          .toInt()
+      )
+    )
+    return hexString.toString()
+  } catch (e: NoSuchAlgorithmException) {
+    e.printStackTrace()
+  }
+  return ""
+}
+
 fun List<MarvelCharacterResponse>.toUiModel(): List<MarvelCharacter> =
   this.map { marvelCharacterResponse ->
     marvelCharacterResponse.toUiModel()
@@ -78,5 +115,5 @@ fun List<MarvelCharacterResponse>.toUiModel(): List<MarvelCharacter> =
 fun MarvelCharacterResponse.toUiModel() = MarvelCharacter(
   id = this.id,
   name = this.name,
-  thumbnailUrl = this.thumbnail.path + "standard_small" + this.thumbnail.extension
+  thumbnailUrl = this.thumbnail?.path + "standard_small" + this.thumbnail?.extension
 )
