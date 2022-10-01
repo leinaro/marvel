@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jetbrains.kotlin.konan.properties.propertyString
+
 plugins {
   id("leinaro-kotlin-library")
   id("org.jetbrains.kotlin.android")
@@ -6,6 +9,10 @@ plugins {
 hilt {
   enableExperimentalClasspathAggregation = true
 }
+
+val apiKey: String = gradleLocalProperties(rootDir).propertyString("marvel.apiKey").orEmpty()
+val privateKey: String =
+  gradleLocalProperties(rootDir).propertyString("marvel.privateKey").orEmpty()
 
 android {
   namespace = "com.leinaro.apis"
@@ -17,6 +24,8 @@ android {
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
+    buildConfigField("String", "marvel_apiKey", apiKey)
+    buildConfigField("String", "marvel_privateKey", privateKey)
   }
 
   buildTypes {

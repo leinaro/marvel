@@ -1,12 +1,11 @@
 package com.leinaro.apis.services
 
 import retrofit2.http.GET
-import retrofit2.http.QueryMap
 
 interface CharactersServices {
 
   @GET("/v1/public/characters")
-  suspend fun fetchesListsOfCharacters(@QueryMap queries: Map<String, String>): MarvelCharactersResponse
+  suspend fun fetchesListsOfCharacters(): MarvelCharactersResponse
 }
 
 data class MarvelCharactersResponse(
