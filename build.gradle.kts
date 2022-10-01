@@ -7,8 +7,8 @@ buildscript {
     maven("https://plugins.gradle.org/m2/")
   }
   dependencies {
-    classpath("com.android.tools.build:gradle:7.2.2")
-    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21")
+    classpath("com.android.tools.build:gradle:7.3.0")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
     classpath("com.google.dagger:hilt-android-gradle-plugin:2.43.2")
     classpath("com.squareup:javapoet:1.13.0")
     classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1")

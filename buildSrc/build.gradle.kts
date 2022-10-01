@@ -11,10 +11,10 @@ plugins {
 }
 
 dependencies {
-  implementation(kotlin("gradle-plugin", "1.6.21"))
-  implementation(kotlin("reflect", "1.6.21"))
-  implementation(kotlin("stdlib-jdk8", "1.6.21"))
-  implementation("com.android.tools.build:gradle:7.2.2")
+  implementation(kotlin("gradle-plugin", "1.7.10"))
+  implementation(kotlin("reflect", "1.7.10"))
+  implementation(kotlin("stdlib-jdk8", "1.7.10"))
+  implementation("com.android.tools.build:gradle:7.3.0")
   implementation(gradleApi())
   implementation(localGroovy())
   implementation("com.squareup:javapoet:1.13.0") // <-- added this

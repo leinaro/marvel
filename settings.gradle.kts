@@ -17,7 +17,6 @@ include(":characters-list")
 include(":architecture-tools")
 include(":domain")
 include(":apis")
-include(":persistence")
 include(":data")
 
 rootProject.name = "Marvel"
