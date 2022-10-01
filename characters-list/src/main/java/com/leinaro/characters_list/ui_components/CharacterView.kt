@@ -54,7 +54,7 @@ import com.leinaro.characters_list.ui_models.CharacterUiModel
         contentScale = ContentScale.Crop,
         error = painterResource(R.drawable.image_placeholder),
         onError = {
-          Log.e("Log iarl", it.result.throwable.message.orEmpty())
+          Log.e(javaClass.name, it.result.throwable.message.orEmpty())
         }
       )
       Column(
@@ -74,7 +74,7 @@ import com.leinaro.characters_list.ui_models.CharacterUiModel
       Icon(
         modifier = Modifier.weight(1f),
         painter = painterResource(id = R.drawable.chevron_right_48px),
-        contentDescription = null // decorative element
+        contentDescription = null
       )
     }
   }

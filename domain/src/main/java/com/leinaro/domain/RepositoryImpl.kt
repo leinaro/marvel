@@ -1,5 +1,6 @@
 package com.leinaro.domain
 
+import android.util.Log
 import com.leinaro.apis.services.CharactersServices
 import com.leinaro.apis.services.MarvelCharacterResponse
 import com.leinaro.data.MarvelCharacter
@@ -40,15 +41,11 @@ class RepositoryImpl @Inject constructor(
   override fun getCharacters(): Flow<ApiResponse<List<MarvelCharacter>>> = flow {
     emit(ApiResponse.Loading(isLoading = true))
     val response = charactersServices.fetchesListsOfCharacters()
-
-    println("iarl ---- *" + response)
-
     emit(ApiResponse.Success(response.data.results?.toUiModel()))
     emit(ApiResponse.Loading(isLoading = false))
   }.catch {
-    println("iarl ---- **" + it)
-    println("iarl ---- **" + this)
-    emit(ApiResponse.Error(null, it?.message))
+    Log.e(javaClass.name, it.message ?: "")
+    emit(ApiResponse.Error(null, it.message))
     emit(ApiResponse.Loading(isLoading = false))
   }
 }
@@ -61,5 +58,7 @@ fun List<MarvelCharacterResponse>.toUiModel(): List<MarvelCharacter> =
 fun MarvelCharacterResponse.toUiModel() = MarvelCharacter(
   id = this.id,
   name = this.name,
-  thumbnailUrl = this.thumbnail?.path + "standard_small" + this.thumbnail?.extension
+  thumbnailUrl = "${this.thumbnail.path}/$STANDARD_SMALL.${this.thumbnail.extension}"
 )
+
+private const val STANDARD_SMALL = "standard_small"

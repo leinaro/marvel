@@ -1,5 +1,6 @@
 package com.leinaro.characters_list
 
+import android.util.Log
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -26,11 +27,15 @@ fun CharactersListScreen(
       )
     }
   ) {
+    Log.e(object {}.javaClass.enclosingMethod?.name, "unknown ui state ")
+
     when (uiState) {
       is CharactersListUiState.ShowCharactersListUiState -> {
         BasicListView(characters = uiState.characters)
       }
-      else -> {}
+      else -> {
+        Log.e(object {}.javaClass.enclosingMethod?.name, "unknown ui state ")
+      }
     }
   }
 }
