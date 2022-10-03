@@ -1,4 +1,4 @@
-package com.leinaro.marvel.ui.theme
+package com.leinaro.android_architecture_tools.theme
 
 import androidx.compose.ui.graphics.Color
 

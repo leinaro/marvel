@@ -17,8 +17,6 @@ object Dependencies {
   val accompanistSwipeRefresh by lazy { "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistSwipeRefresh}" }
   // val runtimeLifecycleCompose by lazy { "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01" }
 
-  //val runtimeLifecycleCompose by lazy { "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01" }
-
   val pagingRuntime by lazy { "androidx.paging:paging-runtime:3.1.1" }
   val pagingCompose by lazy { "androidx.paging:paging-compose:1.0.0-alpha16" }
   // endregion

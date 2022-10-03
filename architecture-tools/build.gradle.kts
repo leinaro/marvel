@@ -7,12 +7,8 @@ plugins {
 
 android {
   namespace = "com.leinaro.android_architecture_tools"
- // compileSdk = 33
 
   defaultConfig {
-   // minSdk = 23
-   // targetSdk = 32
-
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
   }

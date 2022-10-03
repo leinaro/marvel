@@ -31,10 +31,9 @@ hilt {
 }
 
 dependencies {
-
-  implementation("com.google.android.material:material:1.6.1")
-
+  implementation(project(":architecture-tools"))
   implementation(project(":characters-list"))
+  implementation(project(":character-search"))
 
   androidTestImplementation("androidx.test.ext:junit:1.1.3")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

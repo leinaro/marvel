@@ -22,7 +22,7 @@ class CharactersSource @Inject constructor(
     return try {
       val page = params.key ?: 1
       val limit = 20
-      val offset = limit * page
+      val offset = limit * (page - 1)
       val response = charactersServices.fetchesListsOfCharacters(limit, offset)
       LoadResult.Page(
         data = response.data.results.orEmpty().toDomainModel(),

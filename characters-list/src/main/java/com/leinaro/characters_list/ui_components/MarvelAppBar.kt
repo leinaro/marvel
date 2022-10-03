@@ -10,7 +10,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.leinaro.marvel.ui.theme.MarvelTheme
+import com.leinaro.android_architecture_tools.theme.MarvelTheme
 
 @Composable
 fun MarvelAppBar(

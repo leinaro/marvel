@@ -13,7 +13,6 @@ interface GetCharactersUseCase {
 private const val PAGER_SIZE = 20
 
 class GetCharactersUseCaseImpl @Inject constructor(
-//private val repository: Repository,
   private val charactersSource: CharactersSource,
 ) : GetCharactersUseCase {
   override fun execute(): Pager<Int, MarvelCharacter> {
