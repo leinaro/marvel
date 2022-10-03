@@ -1,8 +1,16 @@
 package com.leinaro.characters_list
 
 import android.util.Log
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -13,28 +21,25 @@ import com.leinaro.characters_list.ui_components.BasicListView
 fun CharactersListScreen(
   viewModel: CharactersListViewModel = viewModel()
 ) {
-
   val uiState: CharactersListUiState = viewModel.getUiState()
-
   SwipeRefresh(
-    state = rememberSwipeRefreshState(isRefreshing = false),
+    state = rememberSwipeRefreshState(isRefreshing = uiState.loadingView),
     onRefresh = { viewModel.onRefresh() },
     indicator = { state, trigger ->
       SwipeRefreshIndicator(
         state = state,
         refreshTriggerDistance = trigger,
-        contentColor = MaterialTheme.colors.onSurface
+        contentColor = MaterialTheme.colors.primary
       )
     }
   ) {
-    Log.e(object {}.javaClass.enclosingMethod?.name, "unknown ui state ")
 
     when (uiState) {
       is CharactersListUiState.ShowCharactersListUiState -> {
-        BasicListView(characters = uiState.characters)
+        BasicListView(pagingItems = uiState.charactersPager)
       }
       else -> {
-        Log.e(object {}.javaClass.enclosingMethod?.name, "unknown ui state ")
+        Log.e("CharactersListScreen", "unknown ui state ")
       }
     }
   }

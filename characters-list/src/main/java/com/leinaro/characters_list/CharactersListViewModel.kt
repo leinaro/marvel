@@ -1,22 +1,27 @@
 package com.leinaro.characters_list
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.leinaro.android_architecture_tools.BaseViewModel
 import com.leinaro.android_architecture_tools.di.DefaultDispatcher
 import com.leinaro.characters_list.ui_models.CharacterUiModel
-import com.leinaro.domain.ApiResponse
+import com.leinaro.data.MarvelCharacter
 import com.leinaro.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed interface CharactersListUiState {
-  object DefaultState : CharactersListUiState
+sealed class CharactersListUiState(val loadingView: Boolean = false) {
+  object DefaultState : CharactersListUiState(false)
 
   data class ShowCharactersListUiState(
-    val characters: List<CharacterUiModel> = emptyList(),
-  ) : CharactersListUiState
+    val charactersPager: Flow<PagingData<CharacterUiModel>>? = null,
+    val loading: Boolean = false,
+  ) : CharactersListUiState(loading)
 }
 
 @HiltViewModel
@@ -31,23 +36,12 @@ class CharactersListViewModel @Inject constructor(
 
   fun getCharacters() {
     viewModelScope.launch(dispatchers) {
-      getCharactersUseCase.execute()
-        .collect {
-          when (it) {
-            is ApiResponse.Success -> {
-              val characters = it.data.orEmpty()
-              val value = CharactersListUiState.ShowCharactersListUiState(
-                characters = characters.map {
-                  CharacterUiModel(it.id, it.name, it.thumbnailUrl)
-                })
-              setValue(value)
-            }
-            is ApiResponse.Error -> {
-            }
-            is ApiResponse.Loading -> {
-            }
-          }
+      val pager = getCharactersUseCase.execute().flow.map { pagingData ->
+        pagingData.map { marvelCharacter ->
+          marvelCharacter.toUiModel()
         }
+      }
+      setValue(CharactersListUiState.ShowCharactersListUiState(pager))
     }
   }
 
@@ -55,3 +49,10 @@ class CharactersListViewModel @Inject constructor(
     getCharacters()
   }
 }
+
+fun MarvelCharacter.toUiModel() = CharacterUiModel(
+  id = id,
+  name = name,
+  thumbnailUrl = thumbnailUrl,
+)
+

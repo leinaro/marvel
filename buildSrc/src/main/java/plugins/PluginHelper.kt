@@ -24,7 +24,8 @@ fun DependencyHandlerScope.addComposeDependencies() {
   add("implementation", Dependencies.androidxComposeToolingPreview)
   add("implementation", Dependencies.accompanistSwipeRefresh)
   add("implementation", Dependencies.viewModelCompose)
-  add("implementation", Dependencies.runtimeLifecycleCompose)
+  add("implementation", Dependencies.pagingCompose)
+  add("implementation", Dependencies.pagingRuntime)
 }
 
 fun DependencyHandlerScope.addTestDependencies() {

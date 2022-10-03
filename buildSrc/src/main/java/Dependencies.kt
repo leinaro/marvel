@@ -6,14 +6,21 @@ object Dependencies {
   val androidxAppCompat by lazy { "androidx.appcompat:appcompat:${Versions.androidxAppCompat}" }
 
   // region Compose
-  val androidxActivityCompose by lazy { "androidx.activity:activity-compose:${Versions.activityCompose}" }
-  val androidxComposeMaterial by lazy { "androidx.compose.material:material:${Versions.compose}" }
-  val androidxComposeUiTooling by lazy { "androidx.compose.ui:ui-tooling:${Versions.compose}" }
   val androidxComposeUi by lazy { "androidx.compose.ui:ui:${Versions.compose}" }
+  val androidxComposeUiTooling by lazy { "androidx.compose.ui:ui-tooling:${Versions.compose}" }
   val androidxComposeToolingPreview by lazy { "androidx.compose.ui:ui-tooling-preview:${Versions.compose}" }
-  val accompanistSwipeRefresh by lazy { "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistSwipeRefresh}" }
+  val androidxComposeMaterial by lazy { "androidx.compose.material:material:${Versions.compose}" }
+
   val viewModelCompose by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.viewModelCompose}" }
-  val runtimeLifecycleCompose by lazy { "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01" }
+
+  val androidxActivityCompose by lazy { "androidx.activity:activity-compose:${Versions.activityCompose}" }
+  val accompanistSwipeRefresh by lazy { "com.google.accompanist:accompanist-swiperefresh:${Versions.accompanistSwipeRefresh}" }
+  // val runtimeLifecycleCompose by lazy { "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha01" }
+
+  //val runtimeLifecycleCompose by lazy { "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01" }
+
+  val pagingRuntime by lazy { "androidx.paging:paging-runtime:3.1.1" }
+  val pagingCompose by lazy { "androidx.paging:paging-compose:1.0.0-alpha16" }
   // endregion
 
   // region Ktx

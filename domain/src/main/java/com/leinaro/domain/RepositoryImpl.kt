@@ -1,8 +1,8 @@
 package com.leinaro.domain
 
 import android.util.Log
+import com.leinaro.apis.data.MarvelCharacterResponse
 import com.leinaro.apis.services.CharactersServices
-import com.leinaro.apis.services.MarvelCharacterResponse
 import com.leinaro.data.MarvelCharacter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -40,8 +40,15 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
   override fun getCharacters(): Flow<ApiResponse<List<MarvelCharacter>>> = flow {
     emit(ApiResponse.Loading(isLoading = true))
-    val response = charactersServices.fetchesListsOfCharacters()
-    emit(ApiResponse.Success(response.data.results?.toUiModel()))
+    val limit: Int = 10
+    val offset: Int = 10
+    val response = charactersServices.fetchesListsOfCharacters(
+      limit = limit,
+      offset = offset,
+    )
+
+
+    emit(ApiResponse.Success(response.data.results?.toDomainModel()))
     emit(ApiResponse.Loading(isLoading = false))
   }.catch {
     Log.e(javaClass.name, it.message ?: "")
@@ -50,12 +57,12 @@ class RepositoryImpl @Inject constructor(
   }
 }
 
-fun List<MarvelCharacterResponse>.toUiModel(): List<MarvelCharacter> =
+fun List<MarvelCharacterResponse>.toDomainModel(): List<MarvelCharacter> =
   this.map { marvelCharacterResponse ->
-    marvelCharacterResponse.toUiModel()
+    marvelCharacterResponse.toDomainModel()
   }
 
-fun MarvelCharacterResponse.toUiModel() = MarvelCharacter(
+fun MarvelCharacterResponse.toDomainModel() = MarvelCharacter(
   id = this.id,
   name = this.name,
   thumbnailUrl = "${this.thumbnail.path}/$STANDARD_SMALL.${this.thumbnail.extension}"
