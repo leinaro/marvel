@@ -3,32 +3,29 @@ package com.leinaro.marvel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.leinaro.characters_list.CharactersListScreen
-import com.leinaro.marvel.ui.theme.MarvelTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.navigation.compose.rememberNavController
+import com.leinaro.android_architecture_tools.theme.MarvelTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
+      val scaffoldState = rememberScaffoldState()
+      val navController = rememberNavController()
       MarvelTheme {
-        Scaffold(
-          backgroundColor = MaterialTheme.colors.background,
-          topBar = { MarvelAppBar() },
-          content = { CharactersListScreen() }
-        )
+        Surface(color = MaterialTheme.colors.background) {
+          AppNavHost(navController, scaffoldState)
+        }
       }
     }
-  }
-}
-
-@Preview(showBackground = true) @Composable fun DefaultPreview() {
-  MarvelTheme {
-    CharactersListScreen()
   }
 }

@@ -15,7 +15,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.leinaro.characters_list.ui_models.CharacterUiModel
+import com.leinaro.data.ui_models.CharacterUiModel
 import kotlinx.coroutines.flow.Flow
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -60,12 +60,4 @@ fun BasicListView(
       }
     }
   }
-/*  items(characters) { item ->
-    item?.let {
-      CharacterView(
-        characterUiModel = it,
-        onItemClick = {}
-      )
-    }
-  }*/
 }

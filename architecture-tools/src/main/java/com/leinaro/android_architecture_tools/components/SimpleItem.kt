@@ -1,4 +1,4 @@
-package com.leinaro.characters_list.ui_components
+package com.leinaro.android_architecture_tools.components
 
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
@@ -18,21 +18,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.leinaro.android_architecture_tools.R
-import com.leinaro.data.ui_models.CharacterUiModel
 
-@Composable fun CharacterView(
-  characterUiModel: CharacterUiModel,
-  onItemClick: ((characterUiModel: CharacterUiModel) -> Unit) = {},
+@Composable
+fun <T> SimpleItem(
+  name: String,
+  thumbnailUrl: String,
+  item: T,
+  onItemClick: ((item: T) -> Unit) = {},
 ) {
   Card(
     modifier = Modifier
       .fillMaxWidth()
       .padding(16.dp, 8.dp)
-      .clickable { onItemClick(characterUiModel) },
+      .clickable { onItemClick(item) },
     elevation = 4.dp,
     border = BorderStroke(2.dp, MaterialTheme.colors.background),
     shape = MaterialTheme.shapes.medium,
@@ -45,7 +46,7 @@ import com.leinaro.data.ui_models.CharacterUiModel
       horizontalArrangement = Arrangement.SpaceBetween,
     ) {
       AsyncImage(
-        model = characterUiModel.thumbnailUrl,
+        model = thumbnailUrl,
         placeholder = painterResource(R.drawable.image_placeholder),
         contentDescription = null,
         modifier = Modifier
@@ -67,7 +68,7 @@ import com.leinaro.data.ui_models.CharacterUiModel
           style = MaterialTheme.typography.overline
         )
         Text(
-          text = characterUiModel.name,
+          text = name,
           style = MaterialTheme.typography.h5
         )
       }
@@ -78,14 +79,4 @@ import com.leinaro.data.ui_models.CharacterUiModel
       )
     }
   }
-}
-
-@Preview @Composable fun PreviewMessageCard() {
-  CharacterView(
-    CharacterUiModel(
-      1,
-      "Android",
-      "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"
-    )
-  )
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.map
 import com.leinaro.android_architecture_tools.BaseViewModel
 import com.leinaro.android_architecture_tools.di.DefaultDispatcher
-import com.leinaro.characters_list.ui_models.toUiModel
+import com.leinaro.data.ui_models.toUiModel
 import com.leinaro.characters_list.ui_state.CharactersListUiState
 import com.leinaro.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

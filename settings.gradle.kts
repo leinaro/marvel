@@ -13,8 +13,9 @@ dependencyResolutionManagement {
   }
 }*/
 include(":app")
-include(":characters-list")
 include(":architecture-tools")
+include(":characters-list")
+include(":character-search")
 include(":domain")
 include(":apis")
 include(":data")

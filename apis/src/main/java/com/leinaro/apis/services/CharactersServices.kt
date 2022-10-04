@@ -10,6 +10,7 @@ interface CharactersServices {
   suspend fun fetchesListsOfCharacters(
     @Query("limit") limit: Int,
     @Query("offset") offset: Int,
+    @Query("nameStartsWith") nameStartsWith: String? = null,
   ): MarvelCharactersResponse
 }
 

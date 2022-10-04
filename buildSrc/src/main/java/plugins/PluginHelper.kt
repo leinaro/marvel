@@ -26,6 +26,7 @@ fun DependencyHandlerScope.addComposeDependencies() {
   add("implementation", Dependencies.viewModelCompose)
   add("implementation", Dependencies.pagingCompose)
   add("implementation", Dependencies.pagingRuntime)
+  add("implementation", "androidx.navigation:navigation-compose:2.5.2")
 }
 
 fun DependencyHandlerScope.addTestDependencies() {

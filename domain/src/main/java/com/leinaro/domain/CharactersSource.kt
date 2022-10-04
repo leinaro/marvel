@@ -5,10 +5,20 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.leinaro.apis.services.CharactersServices
 import com.leinaro.data.MarvelCharacter
-import javax.inject.Inject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 
-class CharactersSource @Inject constructor(
+@AssistedFactory
+interface CharactersSourceFactory {
+  fun createCharactersSource(
+    nameStartsWith: String? = null
+  ): CharactersSource
+}
+
+class CharactersSource @AssistedInject constructor(
   private val charactersServices: CharactersServices,
+  @Assisted private val nameStartsWith: String? = null,
 ) : PagingSource<Int, MarvelCharacter>() {
   @ExperimentalPagingApi
   override fun getRefreshKey(state: PagingState<Int, MarvelCharacter>): Int? {
@@ -23,7 +33,11 @@ class CharactersSource @Inject constructor(
       val page = params.key ?: 1
       val limit = 20
       val offset = limit * (page - 1)
-      val response = charactersServices.fetchesListsOfCharacters(limit, offset)
+      val response = charactersServices.fetchesListsOfCharacters(
+        limit = limit,
+        offset = offset,
+        nameStartsWith = nameStartsWith
+      )
       LoadResult.Page(
         data = response.data.results.orEmpty().toDomainModel(),
         prevKey = if (page == 1) null else page - 1,

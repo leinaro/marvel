@@ -1,4 +1,4 @@
-package com.leinaro.characters_list.ui_models
+package com.leinaro.data.ui_models
 
 import com.leinaro.data.MarvelCharacter
 
