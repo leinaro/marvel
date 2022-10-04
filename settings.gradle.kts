@@ -21,3 +21,4 @@ include(":apis")
 include(":data")
 
 rootProject.name = "Marvel"
+include(":character-details")

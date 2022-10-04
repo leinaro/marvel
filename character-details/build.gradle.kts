@@ -1,17 +1,20 @@
 plugins {
-  id("leinaro-android-common")
-  id("jacoco")
-  id("plugins.jacoco-report")
+  id("leinaro-android-library")
+  kotlin("kapt")
+  id("org.jetbrains.kotlin.android")
 }
 
+hilt {
+  enableExperimentalClasspathAggregation = true
+}
+
+
 android {
-  namespace = "com.leinaro.marvel"
+  namespace = "com.leinaro.character_details"
 
   defaultConfig {
-    applicationId = "com.leinaro.marvel"
-    versionCode = 1
-    versionName = "1.0"
-
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles("consumer-rules.pro")
   }
 
   buildTypes {
@@ -20,31 +23,22 @@ android {
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
   }
-
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
   kotlinOptions {
     jvmTarget = "1.8"
+    freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
   }
-}
-
-hilt {
-  enableExperimentalClasspathAggregation = true
 }
 
 dependencies {
   implementation(project(":architecture-tools"))
-  implementation(project(":characters-list"))
-  implementation(project(":character-search"))
-  implementation(project(":character-details"))
-
+  implementation(project(":domain"))
+  implementation(project(":data"))
   androidTestImplementation("androidx.test.ext:junit:1.1.3")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-}
-
-tasks.withType<Test> {
-  configure<JacocoTaskExtension> {
-    isIncludeNoLocationClasses = true
-    excludes = listOf("jdk.internal.*")
-  }
 }
 
 extra.set(

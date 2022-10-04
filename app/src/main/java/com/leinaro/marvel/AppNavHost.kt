@@ -10,6 +10,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.leinaro.character_details.CharacterDetailViewModel
+import com.leinaro.character_details.CharacterDetailsScreen
 import com.leinaro.character_search.CharacterSearchScreen
 import com.leinaro.character_search.CharacterSearchViewModel
 import com.leinaro.characters_list.CharactersListScreen
@@ -38,8 +40,8 @@ fun AppNavHost(
     composable(NavPath.CharactersList.route) {
       val viewModel = hiltViewModel<CharactersListViewModel>()
       CharactersListScreen(
+        navHostController = navHostController,
         viewModel = viewModel,
-        onSearchClick = { navHostController.navigate(NavPath.CharacterSearchView.route) }
       )
     }
 
@@ -57,11 +59,11 @@ fun AppNavHost(
           type = NavType.LongType
         })
     ) {
-/*val userDetailViewModel = hiltViewModel<UserDetailViewModel>()
-      UserDetailUI(
+      val viewModel = hiltViewModel<CharacterDetailViewModel>()
+      CharacterDetailsScreen(
         navHostController = navHostController,
-        userDetailViewModel = userDetailViewModel
-      )*/
+        viewModel = viewModel
+      )
     }
   }
 }

@@ -4,4 +4,5 @@ data class MarvelCharacter(
   val id: Long,
   val name: String,
   val thumbnailUrl: String,
+  val landscapeUrl: String,
 )

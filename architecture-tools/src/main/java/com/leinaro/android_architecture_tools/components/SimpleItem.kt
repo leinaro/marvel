@@ -52,7 +52,7 @@ fun <T> SimpleItem(
         modifier = Modifier
           .size(70.dp)
           .padding(0.dp),
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.Fit,
         error = painterResource(R.drawable.image_placeholder),
         onError = {
           Log.e(javaClass.name, it.result.throwable.message.orEmpty())
