@@ -5,4 +5,9 @@ data class MarvelCharacter(
   val name: String,
   val thumbnailUrl: String,
   val landscapeUrl: String,
+  val comics: List<Comic>,
+)
+
+data class Comic(
+  val name: String,
 )

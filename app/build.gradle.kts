@@ -43,7 +43,7 @@ dependencies {
 tasks.withType<Test> {
   configure<JacocoTaskExtension> {
     isIncludeNoLocationClasses = true
-    excludes = listOf("jdk.internal.*")
+    excludes = listOf("jdk.internal.*", "**/*ScreenKt")
   }
 }
 
@@ -53,13 +53,13 @@ extra.set(
     buildDir,
     "testDebugUnitTest",
     Coverage(
-      instructions = 80.0,
-      lines = 60.0,
-      complexity = 60.0,
-      methods = 60.0,
-      classes = 60.0
+      instructions = 20.0,
+      lines = 20.0,
+      complexity = 20.0,
+      methods = 20.0,
+      classes = 20.0
     ),
     emptyList(),
-    emptyList()
+    listOf("**/*Screen.*")
   )
 )

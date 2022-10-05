@@ -3,6 +3,7 @@ package com.leinaro.domain
 import android.util.Log
 import com.leinaro.apis.data.MarvelCharacterResponse
 import com.leinaro.apis.services.CharactersServices
+import com.leinaro.data.Comic
 import com.leinaro.data.MarvelCharacter
 import com.leinaro.domain.domain_status.ApiResponse
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +36,7 @@ fun MarvelCharacterResponse.toDomainModel() = MarvelCharacter(
   name = this.name,
   thumbnailUrl = "${this.thumbnail.path}/$STANDARD_SMALL.${this.thumbnail.extension}",
   landscapeUrl = "${this.thumbnail.path}/$LANDSCAPE_LARGE.${this.thumbnail.extension}",
+  comics = this.comics.items.map { Comic(it.name) }
 )
 
 private const val STANDARD_SMALL = "standard_small"

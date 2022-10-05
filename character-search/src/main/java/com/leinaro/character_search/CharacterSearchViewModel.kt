@@ -22,7 +22,6 @@ class CharacterSearchViewModel @Inject constructor(
   private val getCharactersUseCase: GetCharactersUseCase,
 ) : BaseViewModel<CharactersSearchUiState>(CharactersSearchUiState.DefaultState) {
 
-  //  private var allCharacters: ArrayList<CharacterUiModel> = ArrayList<CharacterUiModel>()
   private val searchText: MutableStateFlow<String> = MutableStateFlow("")
   private var showProgressBar: MutableStateFlow<Boolean> = MutableStateFlow(false)
   private var matchedCharacters: MutableStateFlow<List<CharacterUiModel>> =
@@ -48,7 +47,6 @@ class CharacterSearchViewModel @Inject constructor(
           marvelCharacter.toUiModel()
         }
       }
-      //matchedCharacters.value = pager
       setValue(CharactersSearchUiState.ShowCharactersListUiState(pager))
     }
   }
@@ -56,33 +54,12 @@ class CharacterSearchViewModel @Inject constructor(
   fun onSearchTextChanged(changedSearchText: String) {
     searchText.value = changedSearchText
     if (changedSearchText.isEmpty()) {
-      // matchedUsers.value = arrayListOf()
       return
     }
     getCharacters(changedSearchText)
-/*    val usersFromSearch = allUsers.filter { x ->
-      x.username.contains(changedSearchText, true) ||
-          x.email.contains(changedSearchText, true) || x.name.contains(
-        changedSearchText,
-        true
-      )
-    }*/
-    //matchedUsers.value = emptyList()//usersFromSearch
   }
 
   fun onClearClick() {
     searchText.value = ""
-    //  matchedUsers.value = arrayListOf()
   }
-/*
-  fun onRefresh() {
-    getCharacters()
-  }*/
 }
-/*
-fun MarvelCharacter.toUiModel() = CharacterUiModel(
-  id = id,
-  name = name,
-  thumbnailUrl = thumbnailUrl,
-)*/
-

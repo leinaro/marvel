@@ -1,11 +1,12 @@
 package com.leinaro.characters_list
 
 import android.util.Log
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -15,34 +16,36 @@ import com.leinaro.android_architecture_tools.components.SimpleItem
 import com.leinaro.characters_list.ui_state.CharactersListUiState
 import com.leinaro.marvel.MarvelAppBar
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 @Composable
 fun CharactersListScreen(
-  navHostController: NavHostController,
   viewModel: CharactersListViewModel = viewModel(),
+  navigateTo: (route: String) -> Unit,
 ) {
   Scaffold(
     backgroundColor = MaterialTheme.colors.background,
     topBar = {
       MarvelAppBar(
-        onSearchClick = {
-          navHostController.navigate(route = "character_search_view")
-        }
+        onSearchClick = { navigateTo("character_search_view") }
       )
     },
-    content = { CharactersList(navHostController, viewModel) }
+    content = { CharactersList(viewModel, navigateTo) }
   )
   viewModel.getCharacters()
 }
 
 @Composable
-private fun CharactersList(
-  navHostController: NavHostController,
+fun CharactersList(
   viewModel: CharactersListViewModel,
+  navigateTo: (route: String) -> Unit = {},
+  onRefresh: () -> Unit = {}
 ) {
   val uiState: CharactersListUiState = viewModel.getUiState()
+
   SwipeRefresh(
     state = rememberSwipeRefreshState(isRefreshing = uiState.loadingView),
-    onRefresh = { viewModel.onRefresh() },
+    onRefresh = { onRefresh() },
     indicator = { state, trigger ->
       SwipeRefreshIndicator(
         state = state,
@@ -63,19 +66,13 @@ private fun CharactersList(
                 name = characterUiModel.name,
                 thumbnailUrl = characterUiModel.thumbnailUrl,
                 item = characterUiModel,
-                onItemClick = { item ->
-                  navHostController.navigate(route = "character_detail_view?id=${item.id}")
-                }
+                onItemClick = { item -> navigateTo("character_detail_view?id=${item.id}") }
               )
             },
             { characterUiModel ->
               characterUiModel.id
             },
           )
-/*        BasicListView(
-          pagingItems = uiState.charactersPager
-        )*/
-          //                  navHostController.navigate(route = "character_detail_view?id=${item.id}")
         }
       }
       else -> {

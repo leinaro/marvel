@@ -1,6 +1,7 @@
 package com.leinaro.characters_list
 
 import androidx.paging.Pager
+import com.leinaro.characters_list.ui_state.CharactersListUiState
 import com.leinaro.data.MarvelCharacter
 import com.leinaro.domain.usecases.GetCharactersUseCase
 import io.mockk.MockKAnnotations
@@ -57,7 +58,7 @@ internal class CharactersListViewModelTest {
 
   @Test fun `Should get characters`() = runBlockingTest {
     // given
-    val pager = mockk<Pager<Int, MarvelCharacter>>()
+    val pager = mockk<Pager<Int, MarvelCharacter>>(relaxed = true)
     every { getCharactersUseCase.execute() } returns pager
 
     // when
@@ -65,11 +66,12 @@ internal class CharactersListViewModelTest {
 
     // then
     verify(exactly = 1) { getCharactersUseCase.execute() }
+    assert(subject.getUiState() is CharactersListUiState.ShowCharactersListUiState)
   }
 
   @Test fun `Should refresh characters`() = runBlockingTest {
     // given
-    val pager = mockk<Pager<Int, MarvelCharacter>>()
+    val pager = mockk<Pager<Int, MarvelCharacter>>(relaxed = true)
     every { getCharactersUseCase.execute() } returns pager
 
     // when
@@ -77,5 +79,7 @@ internal class CharactersListViewModelTest {
 
     // then
     verify(exactly = 1) { getCharactersUseCase.execute() }
+    assert(subject.getUiState() is CharactersListUiState.ShowCharactersListUiState)
+
   }
 }

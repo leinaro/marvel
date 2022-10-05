@@ -46,5 +46,11 @@ object Dependencies {
   val turbine by lazy { "app.cash.turbine:turbine:0.11.0" }
   val truth by lazy { "com.google.truth:truth:1.1.3" }
   val kotlinCoroutinesTest by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4" }
+
+  // AndroidTests
+  val composeJunit4 by lazy { "androidx.compose.ui:ui-test-junit4:${Versions.compose}" }
+  val hiltAndroidTest by lazy { "com.google.dagger:hilt-android-testing:2.38.1" }
+  val hiltAndroidTestCompiler by lazy { "com.google.dagger:hilt-android-compiler:2.38.1" }
+  val composeUiTest by lazy { "androidx.compose.ui:ui-test-manifest:${Versions.compose}" }
 }
 

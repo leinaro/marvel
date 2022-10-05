@@ -37,3 +37,11 @@ fun DependencyHandlerScope.addTestDependencies() {
   add("testImplementation", Dependencies.truth)
   add("testImplementation", Dependencies.kotlinCoroutinesTest)
 }
+
+fun DependencyHandlerScope.addAndroidTestDependencies() {
+  // Test
+  add("androidTestImplementation", Dependencies.composeJunit4)
+  add("androidTestImplementation", Dependencies.hiltAndroidTest)
+  add("kaptAndroidTest", Dependencies.hiltAndroidTestCompiler)
+  add("debugImplementation", Dependencies.composeUiTest)
+}

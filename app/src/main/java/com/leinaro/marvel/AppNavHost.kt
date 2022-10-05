@@ -40,8 +40,8 @@ fun AppNavHost(
     composable(NavPath.CharactersList.route) {
       val viewModel = hiltViewModel<CharactersListViewModel>()
       CharactersListScreen(
-        navHostController = navHostController,
         viewModel = viewModel,
+        navigateTo = { route -> navHostController.navigate(route = route) }
       )
     }
 

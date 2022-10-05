@@ -20,9 +20,19 @@ data class MarvelCharacterResponse(
   val id: Long,
   val name: String,
   val thumbnail: Thumbnail,
+  val comics: Comics,
 )
 
 data class Thumbnail(
   val path: String,
   val extension: String,
+)
+
+data class Comics(
+  val available: Int,
+  val items: List<ComicItem>,
+)
+
+data class ComicItem(
+  val name: String,
 )

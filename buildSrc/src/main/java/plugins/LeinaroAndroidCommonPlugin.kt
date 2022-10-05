@@ -55,4 +55,5 @@ private fun Project.configureAndroidDependencies() = dependencies {
   addCoilDependencies()
   addHiltDependencies()
   addTestDependencies()
+  addAndroidTestDependencies()
 }
