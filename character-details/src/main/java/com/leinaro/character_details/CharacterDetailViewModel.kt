@@ -46,9 +46,4 @@ class CharacterDetailViewModel @Inject constructor(
         }
     }
   }
-
-/*
-  fun onRefresh() {
-    getCharacters()
-  }*/
 }
