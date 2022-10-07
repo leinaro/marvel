@@ -13,12 +13,18 @@ dependencyResolutionManagement {
   }
 }*/
 include(":app")
-include(":architecture-tools")
+include(":core")
+
+// presentation layers
 include(":characters-list")
 include(":character-search")
+include(":character-details")
+
+// Domain layers
 include(":domain")
 include(":apis")
+
+// Data layer
 include(":data")
 
 rootProject.name = "Marvel"
-include(":character-details")

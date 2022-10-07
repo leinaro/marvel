@@ -1,8 +1,7 @@
 package com.leinaro.character_details
 
 import androidx.lifecycle.SavedStateHandle
-import com.leinaro.data.MarvelCharacter
-import com.leinaro.domain.domain_status.ApiResponse
+import com.leinaro.domain.ui_models.CharacterUiModel
 import com.leinaro.domain.usecases.GetCharacterDetailsUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -27,14 +26,13 @@ class CharacterDetailViewModelTest {
 
   private val marvelCharacter = flow {
     emit(
-      ApiResponse.Success(
-        MarvelCharacter(
-          1,
-          "hello",
-          "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_small.jpg",
-          "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_small.jpg",
-          listOf()
-        )
+      CharacterUiModel(
+        1,
+        "hello",
+        "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_small.jpg",
+        "http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_small.jpg",
+        "",
+        listOf()
       )
     )
   }

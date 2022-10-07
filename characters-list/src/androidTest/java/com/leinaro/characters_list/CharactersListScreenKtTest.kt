@@ -5,9 +5,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
-import com.leinaro.android_architecture_tools.theme.MarvelTheme
+import com.leinaro.core.theme.MarvelTheme
 import com.leinaro.characters_list.ui_state.CharactersListUiState
-import com.leinaro.data.ui_models.CharacterUiModel
+import com.leinaro.domain.ui_models.CharacterUiModel
 import kotlinx.coroutines.flow.flow
 import org.junit.Before
 import org.junit.Rule

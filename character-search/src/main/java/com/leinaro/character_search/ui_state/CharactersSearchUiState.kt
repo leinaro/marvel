@@ -1,7 +1,7 @@
 package com.leinaro.character_search.ui_state
 
 import androidx.paging.PagingData
-import com.leinaro.data.ui_models.CharacterUiModel
+import com.leinaro.domain.ui_models.CharacterUiModel
 import kotlinx.coroutines.flow.Flow
 
 sealed class CharactersSearchUiState(val loadingView: Boolean = false) {

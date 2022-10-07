@@ -38,7 +38,9 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.leinaro.core.theme.MarvelTheme
 
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
@@ -151,5 +153,15 @@ fun NoSearchResults() {
     horizontalAlignment = CenterHorizontally
   ) {
     Text("No hay resultados")
+  }
+}
+
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
+@Preview(showBackground = true)
+@Composable
+private fun SearchBarUIPreview() {
+  MarvelTheme {
+    SearchBarUI("")
   }
 }

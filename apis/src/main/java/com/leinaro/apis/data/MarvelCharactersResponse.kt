@@ -1,26 +1,26 @@
 package com.leinaro.apis.data
 
-data class MarvelCharactersResponse(
+data class MarvelCharactersResponse<T>(
   val code: String,
   val status: String,
   val copyright: String,
   val attributionText: String,
-  val data: MarvelDataResponse,
+  val data: MarvelDataResponse<T>,
 )
 
-data class MarvelDataResponse(
+data class MarvelDataResponse<T>(
   val offset: Int,
   val limit: Int,
   val total: Int,
   val count: Int,
-  val results: List<MarvelCharacterResponse>?,
+  val results: List<T>?,
 )
 
 data class MarvelCharacterResponse(
   val id: Long,
   val name: String,
+  val description: String,
   val thumbnail: Thumbnail,
-  val comics: Comics,
 )
 
 data class Thumbnail(
@@ -28,11 +28,9 @@ data class Thumbnail(
   val extension: String,
 )
 
-data class Comics(
-  val available: Int,
-  val items: List<ComicItem>,
-)
-
-data class ComicItem(
-  val name: String,
+data class ComicsResponse(
+  val id: Long,
+  val title: String,
+  val description: String,
+  val thumbnail: Thumbnail,
 )

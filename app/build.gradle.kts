@@ -31,7 +31,7 @@ hilt {
 }
 
 dependencies {
-  implementation(project(":architecture-tools"))
+  implementation(project(":core"))
   implementation(project(":characters-list"))
   implementation(project(":character-search"))
   implementation(project(":character-details"))

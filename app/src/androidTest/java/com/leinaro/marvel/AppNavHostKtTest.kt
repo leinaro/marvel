@@ -1,7 +1,7 @@
 package com.leinaro.marvel
 
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.leinaro.android_architecture_tools.theme.MarvelTheme
+import com.leinaro.core.theme.MarvelTheme
 import org.junit.Rule
 import org.junit.Test
 

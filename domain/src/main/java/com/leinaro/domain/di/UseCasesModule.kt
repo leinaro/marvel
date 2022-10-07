@@ -1,7 +1,7 @@
 package com.leinaro.domain.di
 
-import com.leinaro.domain.Repository
-import com.leinaro.domain.RepositoryImpl
+import com.leinaro.data.Repository
+import com.leinaro.data.RepositoryImpl
 import com.leinaro.domain.usecases.GetCharacterDetailsUseCase
 import com.leinaro.domain.usecases.GetCharacterDetailsUseCaseImpl
 import com.leinaro.domain.usecases.GetCharactersUseCase

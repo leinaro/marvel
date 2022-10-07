@@ -3,18 +3,17 @@ package com.leinaro.characters_list
 import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.leinaro.android_architecture_tools.components.BasicPagingList
-import com.leinaro.android_architecture_tools.components.SimpleItem
 import com.leinaro.characters_list.ui_state.CharactersListUiState
-import com.leinaro.marvel.MarvelAppBar
+import com.leinaro.core.components.BasicPagingList
+import com.leinaro.core.components.SimpleItem
 
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
@@ -23,25 +22,20 @@ fun CharactersListScreen(
   viewModel: CharactersListViewModel = viewModel(),
   navigateTo: (route: String) -> Unit,
 ) {
-  Scaffold(
-    backgroundColor = MaterialTheme.colors.background,
-    topBar = {
-      MarvelAppBar(
-        onSearchClick = { navigateTo("character_search_view") }
-      )
-    },
-    content = { CharactersList(viewModel, navigateTo) }
+  CharactersList(
+    viewModel,
+    navigateTo,
   )
-  viewModel.getCharacters()
 }
 
 @Composable
 fun CharactersList(
   viewModel: CharactersListViewModel,
   navigateTo: (route: String) -> Unit = {},
-  onRefresh: () -> Unit = {}
+  onRefresh: () -> Unit = {},
+  modifier: Modifier = Modifier
 ) {
-  val uiState: CharactersListUiState = viewModel.getUiState()
+  val uiState: CharactersListUiState = viewModel.uiState
 
   SwipeRefresh(
     state = rememberSwipeRefreshState(isRefreshing = uiState.loadingView),

@@ -1,15 +1,12 @@
 package com.leinaro.characters_list
 
 import androidx.lifecycle.viewModelScope
-import androidx.paging.map
-import com.leinaro.android_architecture_tools.BaseViewModel
-import com.leinaro.android_architecture_tools.di.DefaultDispatcher
 import com.leinaro.characters_list.ui_state.CharactersListUiState
-import com.leinaro.data.ui_models.toUiModel
+import com.leinaro.core.BaseViewModel
+import com.leinaro.core.di.DefaultDispatcher
 import com.leinaro.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,13 +16,13 @@ class CharactersListViewModel @Inject constructor(
   private val getCharactersUseCase: GetCharactersUseCase,
 ) : BaseViewModel<CharactersListUiState>(CharactersListUiState.DefaultState) {
 
+  init {
+    getCharacters()
+  }
+
   fun getCharacters() {
     viewModelScope.launch(dispatchers) {
-      val pager = getCharactersUseCase.execute().flow.map { pagingData ->
-        pagingData.map { marvelCharacter ->
-          marvelCharacter.toUiModel()
-        }
-      }
+      val pager = getCharactersUseCase.execute().flow
       setValue(CharactersListUiState.ShowCharactersListUiState(pager))
     }
   }

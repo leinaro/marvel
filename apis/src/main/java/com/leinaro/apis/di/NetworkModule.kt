@@ -15,8 +15,8 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.math.BigInteger
 import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import javax.inject.Singleton
 
 private const val MARVEL_BASE_URL = "https://gateway.marvel.com/"
@@ -54,9 +54,7 @@ object NetworkModule {
 
   @Provides
   @Singleton
-  fun providesAuthMarvelInterceptor(
-    @ApplicationContext context: Context,
-  ): Interceptor {
+  fun providesAuthMarvelInterceptor(): Interceptor {
     val authMarvelInterceptor = Interceptor { chain ->
       val original: Request = chain.request()
       val originalHttpUrl: HttpUrl = original.url
@@ -64,7 +62,6 @@ object NetworkModule {
       val privateKey = BuildConfig.marvel_privateKey
       val apiKey = BuildConfig.marvel_apiKey
       val md5 = md5(ts + privateKey + apiKey)
-
       val url = originalHttpUrl.newBuilder()
         .addQueryParameter("apikey", apiKey)
         .addQueryParameter("ts", ts)
@@ -89,31 +86,14 @@ object NetworkModule {
     authMarvelInterceptor: Interceptor,
   ): OkHttpClient {
     return OkHttpClient.Builder()
-      .addInterceptor(authMarvelInterceptor)
-      .addInterceptor(chuckerInterceptor)
       .addInterceptor(httpLoggingInterceptor)
+      .addInterceptor(chuckerInterceptor)
+      .addInterceptor(authMarvelInterceptor)
       .build()
   }
 }
 
-private fun md5(s: String): String {
-  try {
-    // Create MD5 Hash
-    val digest = MessageDigest.getInstance("MD5")
-    digest.update(s.toByteArray())
-    val messageDigest = digest.digest()
-
-    // Create Hex String
-    val hexString = StringBuffer()
-    for (i in messageDigest.indices) hexString.append(
-      Integer.toHexString(
-        0xFF and messageDigest[i]
-          .toInt()
-      )
-    )
-    return hexString.toString()
-  } catch (e: NoSuchAlgorithmException) {
-    e.printStackTrace()
-  }
-  return ""
+fun md5(input: String): String {
+  val md = MessageDigest.getInstance("MD5")
+  return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
 }

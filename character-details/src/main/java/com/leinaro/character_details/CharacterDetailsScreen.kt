@@ -1,38 +1,43 @@
 package com.leinaro.character_details
 
-import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import com.leinaro.character_details.ui_components.CharacterDetailTopAppBar
 import com.leinaro.character_details.ui_components.CharacterDetailView
-import com.leinaro.character_details.ui_state.CharacterDetailsUiState
+import com.leinaro.core.components.MarvelAppBarData
 
 @Composable
 fun CharacterDetailsScreen(
-  navHostController: NavHostController,
+  marvelAppBarData: MarvelAppBarData,
   viewModel: CharacterDetailViewModel = viewModel()
 ) {
-  val uiState: CharacterDetailsUiState = viewModel.getUiState()
+  val uiState = viewModel.uiState
 
-  Column(modifier = Modifier.fillMaxSize()) {
-    when (uiState) {
-      is CharacterDetailsUiState.ShowCharacterDetailsUiState -> {
-        CharacterDetailTopAppBar(
-          title = uiState.characterDetails.name,
-          onBackClick = {
-            navHostController.popBackStack()
-          }
-        )
-        CharacterDetailView(uiState.characterDetails)
-      }
-      else -> {
-        Log.e("CharacterDetailsScreen", "unknown ui state ")
+  when (uiState) {
+    is Result.Loading -> {
+      if (uiState.isLoading) {
+        Column(
+          modifier = Modifier.fillMaxSize(),
+          verticalArrangement = Arrangement.Center,
+          horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+          CircularProgressIndicator()
+        }
       }
     }
+    is Result.Success -> {
+      Column(modifier = Modifier.fillMaxSize()) {
+        uiState._data?.characterDetails?.let {
+          marvelAppBarData.title = uiState._data.characterDetails.name
+          CharacterDetailView(uiState._data.characterDetails)
+        }
+      }
+    }
+    is Result.Error -> {}
   }
-  viewModel.getCharacterDetails()
 }

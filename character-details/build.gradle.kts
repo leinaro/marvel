@@ -34,9 +34,8 @@ android {
 }
 
 dependencies {
-  implementation(project(":architecture-tools"))
+  implementation(project(":core"))
   implementation(project(":domain"))
-  implementation(project(":data"))
   androidTestImplementation("androidx.test.ext:junit:1.1.3")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }

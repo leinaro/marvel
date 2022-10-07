@@ -9,9 +9,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.leinaro.android_architecture_tools.components.BasicPagingList
-import com.leinaro.android_architecture_tools.components.SimpleItem
-import com.leinaro.android_architecture_tools.rememberFlowWithLifecycle
+import com.leinaro.core.components.BasicPagingList
+import com.leinaro.core.components.SimpleItem
+import com.leinaro.core.rememberFlowWithLifecycle
 import com.leinaro.character_search.ui_components.NoSearchResults
 import com.leinaro.character_search.ui_components.SearchBarUI
 import com.leinaro.character_search.ui_state.CharactersSearchUiState
@@ -21,9 +21,9 @@ import com.leinaro.character_search.ui_state.CharactersSearchUiState
 @Composable
 fun CharacterSearchScreen(
   navHostController: NavHostController,
-  viewModel: CharacterSearchViewModel = viewModel()
+  viewModel: CharacterSearchViewModel = viewModel(),
 ) {
-  val uiState: CharactersSearchUiState = viewModel.getUiState()
+  val uiState: CharactersSearchUiState = viewModel.uiState
 
   val characterSearchModelState: CharactersSearchUiState.SearchCharactersUiState by rememberFlowWithLifecycle(
     viewModel.userSearchModelState

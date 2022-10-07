@@ -2,14 +2,14 @@ package com.leinaro.domain.usecases
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.leinaro.data.MarvelCharacter
 import com.leinaro.domain.CharactersSourceFactory
+import com.leinaro.domain.ui_models.CharacterUiModel
 import javax.inject.Inject
 
 interface GetCharactersUseCase {
   fun execute(
     nameStartsWith: String? = null
-  ): Pager<Int, MarvelCharacter>
+  ): Pager<Int, CharacterUiModel>
 }
 
 private const val PAGER_SIZE = 20
@@ -20,7 +20,7 @@ class GetCharactersUseCaseImpl @Inject constructor(
 
   override fun execute(
     nameStartsWith: String?
-  ): Pager<Int, MarvelCharacter> {
+  ): Pager<Int, CharacterUiModel> {
     return Pager(
       PagingConfig(
         pageSize = PAGER_SIZE,

@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.rememberNavController
-import com.leinaro.android_architecture_tools.theme.MarvelTheme
+import com.leinaro.core.theme.MarvelTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalComposeUiApi

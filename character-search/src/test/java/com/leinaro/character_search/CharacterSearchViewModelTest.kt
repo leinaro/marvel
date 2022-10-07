@@ -1,7 +1,7 @@
 package com.leinaro.character_search
 
 import androidx.paging.Pager
-import com.leinaro.data.MarvelCharacter
+import com.leinaro.domain.ui_models.CharacterUiModel
 import com.leinaro.domain.usecases.GetCharactersUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -36,7 +36,7 @@ internal class CharacterSearchViewModelTest {
 
   @Test fun `Should get characters`() = runBlockingTest {
     // given
-    val pager = mockk<Pager<Int, MarvelCharacter>>(relaxed = true)
+    val pager = mockk<Pager<Int, CharacterUiModel>>(relaxed = true)
     every { getCharactersUseCase.execute(any()) } returns pager
 
     // when
