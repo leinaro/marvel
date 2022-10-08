@@ -39,8 +39,10 @@ The project have three groups of layers:
 
 ### Modules
 
+## Key words
+view model, jetpack compose, flow, hilt, retrofit.
+
+
 ## About the developer
 
-
-
-Key words: view model, jetpack compose, flow, hilt, retrofit.
+https://www.linkedin.com/in/ingenieraadela/

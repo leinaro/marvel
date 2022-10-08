@@ -49,17 +49,5 @@ tasks.withType<Test> {
 
 extra.set(
   JacocoCoverage.coverageDataExtra,
-  CoverageTaskParam(
-    buildDir,
-    "testDebugUnitTest",
-    Coverage(
-      instructions = 20.0,
-      lines = 20.0,
-      complexity = 20.0,
-      methods = 20.0,
-      classes = 20.0
-    ),
-    emptyList(),
-    listOf("**/*Screen.*")
-  )
+  CoverageTaskParam(buildDirectory = buildDir)
 )

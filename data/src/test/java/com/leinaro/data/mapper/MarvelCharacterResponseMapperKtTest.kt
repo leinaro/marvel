@@ -8,7 +8,7 @@ import org.junit.Test
 class MarvelCharacterResponseMapperKtTest {
 
   @Test
-  fun `MarvelCharacterResponse to MarvelCharacter`() {
+  fun `MarvelCharacterResponse to MarvelCharacterData`() {
     // given
     val marvelCharacterResponse = MarvelCharacterResponse(
       id = 1234,
@@ -33,15 +33,19 @@ class MarvelCharacterResponseMapperKtTest {
         id = 1234,
         name = "Captain",
         thumbnail = Thumbnail(
-          path = "",
+          path = "url_imagen",
           extension = "jpg"
         ),
-        description = "",
+        description = "description",
       )
     )
 
     // when
     val subject = marvelCharacterResponseList.toDomainModel()
     Assert.assertEquals(1234, subject.first().id)
+    Assert.assertEquals("Captain", subject.first().name)
+    Assert.assertEquals("description", subject.first().description)
+    Assert.assertEquals("url_imagen/standard_small.jpg", subject.first().thumbnailUrl)
+    Assert.assertEquals("url_imagen/landscape_large.jpg", subject.first().landscapeUrl)
   }
 }

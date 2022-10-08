@@ -6,22 +6,14 @@ plugins {
   id("org.jetbrains.kotlin.android")
 }
 
-hilt {
-  enableExperimentalClasspathAggregation = true
-}
-
 val apiKey: String = gradleLocalProperties(rootDir).propertyString("marvel.apiKey").orEmpty()
 val privateKey: String =
   gradleLocalProperties(rootDir).propertyString("marvel.privateKey").orEmpty()
 
 android {
   namespace = "com.leinaro.apis"
-  compileSdk = 32
 
   defaultConfig {
-    minSdk = 23
-    targetSdk = 32
-
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
     buildConfigField("String", "marvel_apiKey", apiKey)
@@ -57,17 +49,5 @@ dependencies {
 
 extra.set(
   JacocoCoverage.coverageDataExtra,
-  CoverageTaskParam(
-    buildDir,
-    "testDebugUnitTest",
-    Coverage(
-      instructions = 80.0,
-      lines = 60.0,
-      complexity = 60.0,
-      methods = 60.0,
-      classes = 60.0
-    ),
-    emptyList(),
-    emptyList()
-  )
+  CoverageTaskParam(buildDirectory = buildDir)
 )

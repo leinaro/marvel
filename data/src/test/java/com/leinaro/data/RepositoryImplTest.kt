@@ -2,6 +2,7 @@ package com.leinaro.data
 
 import android.util.Log
 import app.cash.turbine.testIn
+import com.leinaro.apis.data.ComicsResponse
 import com.leinaro.apis.data.MarvelCharacterResponse
 import com.leinaro.apis.data.MarvelCharactersResponse
 import com.leinaro.apis.services.CharactersServices
@@ -36,15 +37,23 @@ class RepositoryImplTest {
     val marvelCharactersResponse =
       mockk<MarvelCharactersResponse<MarvelCharacterResponse>>(relaxed = true)
     val marvelCharacterResponse = mockk<MarvelCharacterResponse>(relaxed = true)
-
     every { marvelCharactersResponse.data.results } returns listOf(marvelCharacterResponse)
     coEvery { charactersServices.fetchCharacter(1234) } returns marvelCharactersResponse
+
+    val marvelCharactersComicsResponse =
+      mockk<MarvelCharactersResponse<ComicsResponse>>(relaxed = true)
+    val comicsResponse = mockk<ComicsResponse>(relaxed = true)
+    every { marvelCharactersComicsResponse.data.results } returns listOf(comicsResponse)
+    coEvery { charactersServices.fetchCharacterComics(1234) } returns marvelCharactersComicsResponse
 
     // when
     val turbine = subject.getCharacterDetails(1234).testIn(this)
 
-    assert(turbine.awaitItem() is MarvelCharacterData)
+    val character = turbine.awaitItem()
+    assert(character is MarvelCharacterData)
+    assert(character?.comics?.first() == comicsResponse.toDomainModel())
     turbine.awaitComplete()
+    coVerify(exactly = 1) { charactersServices.fetchCharacterComics(any()) }
     coVerify(exactly = 1) { charactersServices.fetchCharacter(1234) }
   }
 
@@ -69,20 +78,47 @@ class RepositoryImplTest {
     val marvelCharactersResponse =
       mockk<MarvelCharactersResponse<MarvelCharacterResponse>>(relaxed = true)
     val marvelCharacterResponse = mockk<MarvelCharacterResponse>(relaxed = true)
+    val marvelCharactersComicsResponse =
+      mockk<MarvelCharactersResponse<ComicsResponse>>(relaxed = true)
+    val comicsResponse = mockk<ComicsResponse>(relaxed = true)
 
+    every { marvelCharacterResponse.id } returns 1234
     every { marvelCharactersResponse.data.results } returns listOf(marvelCharacterResponse)
+    every { marvelCharactersComicsResponse.data.results } returns listOf(comicsResponse)
+
     coEvery {
-      charactersServices.fetchesListsOfCharacters(
-        any(),
-        any()
-      )
+      charactersServices.fetchesListsOfCharacters(any(), any())
     } returns marvelCharactersResponse
 
     // when
     val subject = subject.fetchesListsOfCharacters(10, 0)
 
-    assert(subject == listOf(marvelCharacterResponse.toDomainModel()))
     coVerify(exactly = 1) { charactersServices.fetchesListsOfCharacters(any(), any()) }
+
+    assert(subject == listOf(marvelCharacterResponse.toDomainModel()))
+    assert(subject.first().id == 1234L)
+  }
+
+  @Test fun `Should return a list of MarvelCharacter when no character was found`() = runBlocking {
+    // given
+    val marvelCharactersResponse =
+      mockk<MarvelCharactersResponse<MarvelCharacterResponse>>(relaxed = true)
+    val marvelCharactersComicsResponse =
+      mockk<MarvelCharactersResponse<ComicsResponse>>(relaxed = true)
+
+    every { marvelCharactersResponse.data.results } returns emptyList()
+    every { marvelCharactersComicsResponse.data.results } returns emptyList()
+
+    coEvery {
+      charactersServices.fetchesListsOfCharacters(any(), any(), null)
+    } returns marvelCharactersResponse
+
+    // when
+    val subject = subject.fetchesListsOfCharacters(10, 0)
+
+    coVerify(exactly = 1) { charactersServices.fetchesListsOfCharacters(any(), any(), null) }
+
+    assert(subject.isEmpty())
   }
 
 }

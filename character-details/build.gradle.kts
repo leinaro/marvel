@@ -42,17 +42,5 @@ dependencies {
 
 extra.set(
   JacocoCoverage.coverageDataExtra,
-  CoverageTaskParam(
-    buildDir,
-    "testDebugUnitTest",
-    Coverage(
-      instructions = 80.0,
-      lines = 60.0,
-      complexity = 60.0,
-      methods = 60.0,
-      classes = 60.0
-    ),
-    emptyList(),
-    emptyList()
-  )
+  CoverageTaskParam(buildDirectory = buildDir)
 )

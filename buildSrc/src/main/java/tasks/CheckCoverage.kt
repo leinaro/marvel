@@ -13,7 +13,6 @@ import java.math.RoundingMode
 
 private const val INSTRUCTION = "INSTRUCTION"
 private const val LINE = "LINE"
-private const val COMPLEXITY = "COMPLEXITY"
 private const val METHOD = "METHOD"
 private const val CLASS = "CLASS"
 
@@ -30,90 +29,85 @@ open class CheckCoverage : DefaultTask() {
     val parser = XmlParser()
     parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
     parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+    logger.quiet("*** coverage file path ${coverageFilePath}")
     val file = File(coverageFilePath)
-    if (file.exists()) {
-      val formatter = parser.parse(file)
-      val properties = mutableMapOf(
-        INSTRUCTION to Pair(0.0, 0.0),
-        LINE to Pair(0.0, 0.0),
-        COMPLEXITY to Pair(0.0, 0.0),
-        METHOD to Pair(0.0, 0.0),
-        CLASS to Pair(0.0, 0.0),
-      )
-      formatter.children().forEach { node ->
-        properties.forEach {
-          properties[it.key] =
-            properties[it.key]?.plus(getSumForType(node as Node, it.key)) ?: Pair(0.0, 0.0)
-        }
-      }
 
-      val propertiesCovered = Coverage(
-        instructions = getCalculatedValue(properties[INSTRUCTION]),
-        lines = getCalculatedValue(properties[LINE]),
-        complexity = getCalculatedValue(properties[COMPLEXITY]),
-        methods = getCalculatedValue(properties[METHOD]),
-        classes = getCalculatedValue(properties[CLASS]),
-      )
-
-      val coveragePassed = mutableListOf<String>()
-      val coverageFailed = mutableListOf<String>()
-
-      val instructionsMessage =
-        "$INSTRUCTION --> ${getRoundValue(propertiesCovered.instructions)}% expected: ${coverage.instructions}%"
-      if (propertiesCovered.instructions.asBigDecimal() < coverage.instructions.asBigDecimal()) {
-        coverageFailed.add(instructionsMessage)
-      } else {
-        coveragePassed.add(instructionsMessage)
-      }
-
-      val linesMessage =
-        "$LINE ---------> ${getRoundValue(propertiesCovered.lines)}% expected: ${coverage.lines}%"
-      if (propertiesCovered.lines.asBigDecimal() < coverage.lines.asBigDecimal()) {
-        coverageFailed.add(linesMessage)
-      } else {
-        coveragePassed.add(linesMessage)
-      }
-
-      val complexityMessage =
-        "$COMPLEXITY ---------> ${getRoundValue(propertiesCovered.complexity)}% expected: ${coverage.complexity}%"
-      if (propertiesCovered.complexity.asBigDecimal() < coverage.complexity.asBigDecimal()) {
-        coverageFailed.add(complexityMessage)
-      } else {
-        coveragePassed.add(complexityMessage)
-      }
-
-      val methodsMessage =
-        "$METHOD ---------> ${getRoundValue(propertiesCovered.methods)}% expected: ${coverage.methods}%"
-      if (propertiesCovered.methods.asBigDecimal() < coverage.methods.asBigDecimal()) {
-        coverageFailed.add(methodsMessage)
-      } else {
-        coveragePassed.add(methodsMessage)
-      }
-
-      val classesMessage =
-        "$CLASS ---------> ${getRoundValue(propertiesCovered.classes)}% expected: ${coverage.classes}%"
-      if (propertiesCovered.classes.asBigDecimal() < coverage.classes.asBigDecimal()) {
-        coverageFailed.add(classesMessage)
-      } else {
-        coveragePassed.add(classesMessage)
-      }
-
-      if (coverageFailed.isEmpty()) {
-        logger.quiet("COVERAGE PASSED ********")
-        coveragePassed.forEach {
-          logger.quiet(it)
-        }
-        logger.quiet("************************")
-      } else {
-        val exceptionMessage = "COVERAGE FAILED *******"
-        coverageFailed.forEach {
-          logger.quiet(it)
-        }
-        logger.quiet("************************")
-        throw GradleException(exceptionMessage)
-      }
-    } else {
+    if (!file.exists()) {
       logger.quiet("No coverage file found at $coverageFilePath")
+      return
+    }
+
+    val formatter = parser.parse(file)
+
+    val properties = mutableMapOf(
+      INSTRUCTION to Pair(0.0, 0.0),
+      LINE to Pair(0.0, 0.0),
+      METHOD to Pair(0.0, 0.0),
+      CLASS to Pair(0.0, 0.0),
+    )
+
+    formatter.children().forEach { node ->
+      properties.forEach {
+        properties[it.key] =
+          properties[it.key]?.plus(getSumForType(node as Node, it.key)) ?: Pair(0.0, 0.0)
+      }
+    }
+
+    val propertiesCovered = Coverage(
+      instructions = getCalculatedValue(properties[INSTRUCTION]),
+      lines = getCalculatedValue(properties[LINE]),
+      methods = getCalculatedValue(properties[METHOD]),
+      classes = getCalculatedValue(properties[CLASS]),
+    )
+
+    val coveragePassed = mutableListOf<String>()
+    val coverageFailed = mutableListOf<String>()
+
+    val instructionsMessage =
+      "$INSTRUCTION --> ${getRoundValue(propertiesCovered.instructions)}% expected: ${coverage.instructions}%"
+    if (propertiesCovered.instructions < coverage.instructions) {
+      coverageFailed.add(instructionsMessage)
+    } else {
+      coveragePassed.add(instructionsMessage)
+    }
+
+    val linesMessage =
+      "$LINE ---------> ${getRoundValue(propertiesCovered.lines)}% expected: ${coverage.lines}%"
+    if (propertiesCovered.lines < coverage.lines) {
+      coverageFailed.add(linesMessage)
+    } else {
+      coveragePassed.add(linesMessage)
+    }
+
+    val methodsMessage =
+      "$METHOD -------> ${getRoundValue(propertiesCovered.methods)}% expected: ${coverage.methods}%"
+    if (propertiesCovered.methods < coverage.methods) {
+      coverageFailed.add(methodsMessage)
+    } else {
+      coveragePassed.add(methodsMessage)
+    }
+
+    val classesMessage =
+      "$CLASS --------> ${getRoundValue(propertiesCovered.classes)}% expected: ${coverage.classes}%"
+    if (propertiesCovered.classes < coverage.classes) {
+      coverageFailed.add(classesMessage)
+    } else {
+      coveragePassed.add(classesMessage)
+    }
+
+    if (coverageFailed.isEmpty()) {
+      logger.quiet("COVERAGE PASSED ********")
+      coveragePassed.forEach {
+        logger.quiet(it)
+      }
+      logger.quiet("************************")
+    } else {
+      val exceptionMessage = "COVERAGE FAILED *******"
+      coverageFailed.forEach {
+        logger.quiet(it)
+      }
+      logger.quiet("************************")
+      throw GradleException(exceptionMessage)
     }
   }
 }
@@ -140,18 +134,9 @@ fun getSumForType(node: Node, type: String): Pair<Double, Double> {
   node.children().forEach {
     val internalNode = (it as Node)
     if (internalNode.attribute("type") == type) {
-      resultCovered = resultCovered.plus(it.attribute("covered").toString().toDouble())
-      resultMissed = resultCovered.plus(it.attribute("missed").toString().toDouble())
-    }
-    if (internalNode.children().isNotEmpty()) {
-      val result = getSumForType(internalNode, type)
-      resultCovered = resultCovered.plus(result.first)
-      resultMissed = resultMissed.plus(result.second)
+      resultCovered += it.attribute("covered").toString().toDouble()
+      resultMissed += it.attribute("missed").toString().toDouble()
     }
   }
   return Pair(resultCovered, resultMissed)
-}
-
-fun Double.asBigDecimal(): BigDecimal {
-  return BigDecimal(this).setScale(2, RoundingMode.HALF_UP)
 }

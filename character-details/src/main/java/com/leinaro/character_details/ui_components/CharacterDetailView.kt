@@ -1,6 +1,7 @@
 package com.leinaro.character_details.ui_components
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,8 +13,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -106,13 +110,13 @@ import com.leinaro.domain.ui_models.ComicUiModel
             .padding(8.dp),
           style = MaterialTheme.typography.h6
         )
-/*        Icon(
+        Icon(
           imageVector = Icons.Filled.ArrowDropDown,
           modifier = Modifier.weight(1f),
           contentDescription = null
-        )*/
+        )
       }
-      //AnimatedVisibility(visible = isExpanded) {
+      AnimatedVisibility(visible = isExpanded) {
       LazyHorizontalGrid(
         modifier = Modifier.height(350.dp), // itemHeight * rowCount + verticalSpacing * (rowCount - 1)
         rows = GridCells.Fixed(1)
@@ -121,7 +125,7 @@ import com.leinaro.domain.ui_models.ComicUiModel
           ComicItemView(comic)
         }
       }
-      // }
+       }
     }
   }
 }
