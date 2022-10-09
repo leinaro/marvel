@@ -14,7 +14,7 @@ import javax.inject.Inject
 class CharactersListViewModel @Inject constructor(
   @DefaultDispatcher private val dispatchers: CoroutineDispatcher,
   private val getCharactersUseCase: GetCharactersUseCase,
-) : BaseViewModel<CharactersListUiState>(CharactersListUiState.DefaultState) {
+) : BaseViewModel<CharactersListUiState>(CharactersListUiState()) {
 
   init {
     getCharacters()
@@ -23,7 +23,7 @@ class CharactersListViewModel @Inject constructor(
   fun getCharacters() {
     viewModelScope.launch(dispatchers) {
       val pager = getCharactersUseCase.execute().flow
-      setValue(CharactersListUiState.ShowCharactersListUiState(pager))
+      setValue(CharactersListUiState(pager))
     }
   }
 

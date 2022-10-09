@@ -45,7 +45,7 @@ internal class CharactersListViewModelTest {
 
     // then
     verify(exactly = 2) { getCharactersUseCase.execute() }
-    assert(subject.uiState is CharactersListUiState.ShowCharactersListUiState)
+    assert(subject.uiState.charactersPager == pager.flow)
   }
 
   @Test fun `Should refresh characters`() = runBlockingTest {
@@ -58,6 +58,6 @@ internal class CharactersListViewModelTest {
 
     // then
     verify(exactly = 2) { getCharactersUseCase.execute() }
-    assert(subject.uiState is CharactersListUiState.ShowCharactersListUiState)
+    assert(subject.uiState.charactersPager == pager.flow)
   }
 }

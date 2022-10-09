@@ -33,12 +33,11 @@ fun CharactersList(
   viewModel: CharactersListViewModel,
   navigateTo: (route: String) -> Unit = {},
   onRefresh: () -> Unit = {},
-  modifier: Modifier = Modifier
 ) {
   val uiState: CharactersListUiState = viewModel.uiState
 
   SwipeRefresh(
-    state = rememberSwipeRefreshState(isRefreshing = uiState.loadingView),
+    state = rememberSwipeRefreshState(isRefreshing = uiState.loading),
     onRefresh = { onRefresh() },
     indicator = { state, trigger ->
       SwipeRefreshIndicator(
@@ -48,30 +47,22 @@ fun CharactersList(
       )
     }
   ) {
-    when (uiState) {
-      is CharactersListUiState.ShowCharactersListUiState -> {
-        uiState.charactersPager?.let { pagingItems ->
-          val lazyPagingItems = pagingItems.collectAsLazyPagingItems()
-
-          BasicPagingList(
-            lazyPagingItems = lazyPagingItems,
-            { characterUiModel ->
-              SimpleItem(
-                name = characterUiModel.name,
-                thumbnailUrl = characterUiModel.thumbnailUrl,
-                item = characterUiModel,
-                onItemClick = { item -> navigateTo("character_detail_view?id=${item.id}") }
-              )
-            },
-            { characterUiModel ->
-              characterUiModel.id
-            },
+    uiState.charactersPager?.let { pagingItems ->
+      val lazyPagingItems = pagingItems.collectAsLazyPagingItems()
+      BasicPagingList(
+        lazyPagingItems = lazyPagingItems,
+        { characterUiModel ->
+          SimpleItem(
+            name = characterUiModel.name,
+            thumbnailUrl = characterUiModel.thumbnailUrl,
+            item = characterUiModel,
+            onItemClick = { item -> navigateTo("character_detail_view?id=${item.id}") }
           )
-        }
-      }
-      else -> {
-        Log.e("CharactersListScreen", "unknown ui state $uiState")
-      }
+        },
+        { characterUiModel ->
+          characterUiModel.id
+        },
+      )
     }
   }
 }
