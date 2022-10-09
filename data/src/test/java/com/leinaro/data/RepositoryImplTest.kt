@@ -32,7 +32,7 @@ class RepositoryImplTest {
     subject = RepositoryImpl(charactersServices)
   }
 
-  @Test fun `Should get character sucessfuly`() = runBlocking {
+  @Test fun `Should get character successfully`() = runBlocking {
     // given
     val marvelCharactersResponse =
       mockk<MarvelCharactersResponse<MarvelCharacterResponse>>(relaxed = true)

@@ -3,8 +3,8 @@ package com.leinaro.domain
 import androidx.paging.PagingSource
 import com.leinaro.data.Repository
 import com.leinaro.data.data.MarvelCharacterData
+import com.leinaro.domain.mapper.toUiModel
 import com.leinaro.domain.ui_models.CharacterUiModel
-import com.leinaro.domain.ui_models.toUiModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

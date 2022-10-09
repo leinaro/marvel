@@ -4,8 +4,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.leinaro.data.Repository
+import com.leinaro.domain.mapper.toUiModel
 import com.leinaro.domain.ui_models.CharacterUiModel
-import com.leinaro.domain.ui_models.toUiModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

@@ -33,7 +33,7 @@ class ComicsResponseMapperKtTest {
         id = 1234,
         title = "Captain",
         thumbnail = Thumbnail(
-          path = "",
+          path = "image_url",
           extension = "jpg"
         ),
         description = "",
@@ -42,7 +42,9 @@ class ComicsResponseMapperKtTest {
 
     // when
     val subject = comicsResponseList.toDomainModel()
-    Assert.assertEquals("Captain", subject.first().name)
-  }
 
+    // then
+    Assert.assertEquals("Captain", subject.first().name)
+    Assert.assertEquals("image_url/portrait_xlarge.jpg", subject.first().imageUrl)
+  }
 }

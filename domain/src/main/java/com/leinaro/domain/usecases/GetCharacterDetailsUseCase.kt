@@ -1,8 +1,8 @@
 package com.leinaro.domain.usecases
 
 import com.leinaro.data.Repository
+import com.leinaro.domain.mapper.toUiModel
 import com.leinaro.domain.ui_models.CharacterUiModel
-import com.leinaro.domain.ui_models.toUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

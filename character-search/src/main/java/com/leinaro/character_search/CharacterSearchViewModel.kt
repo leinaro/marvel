@@ -6,7 +6,6 @@ import com.leinaro.core.BaseViewModel
 import com.leinaro.core.di.DefaultDispatcher
 import com.leinaro.character_search.ui_state.CharactersSearchUiState
 import com.leinaro.domain.ui_models.CharacterUiModel
-import com.leinaro.domain.ui_models.toUiModel
 import com.leinaro.domain.usecases.GetCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

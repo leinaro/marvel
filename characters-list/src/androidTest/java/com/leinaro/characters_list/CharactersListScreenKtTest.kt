@@ -8,6 +8,8 @@ import androidx.paging.PagingData
 import com.leinaro.core.theme.MarvelTheme
 import com.leinaro.characters_list.ui_state.CharactersListUiState
 import com.leinaro.domain.ui_models.CharacterUiModel
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.flow
 import org.junit.Before
 import org.junit.Rule
@@ -30,7 +32,7 @@ class CharactersListScreenKtTest {
 
   @Test
   fun myTest() {
-    val uiState = CharactersListUiState.ShowCharactersListUiState(
+    val uiState = CharactersListUiState(
       charactersPager = flow {
         emit(
           PagingData.from(
