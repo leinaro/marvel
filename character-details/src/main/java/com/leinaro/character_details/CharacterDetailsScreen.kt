@@ -9,12 +9,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.leinaro.character_details.ui_components.CharacterDetailView
+import com.leinaro.core.Result
+import com.leinaro.core.components.InfoDialog
 import com.leinaro.core.components.MarvelAppBarData
 
 @Composable
 fun CharacterDetailsScreen(
   marvelAppBarData: MarvelAppBarData,
-  viewModel: CharacterDetailViewModel = viewModel()
+  viewModel: CharacterDetailViewModel = viewModel(),
+  navigateBack: () -> Unit = {},
 ) {
   val uiState = viewModel.uiState
 
@@ -32,12 +35,18 @@ fun CharacterDetailsScreen(
     }
     is Result.Success -> {
       Column(modifier = Modifier.fillMaxSize()) {
-        uiState._data?.characterDetails?.let {
-          marvelAppBarData.title = uiState._data.characterDetails.name
-          CharacterDetailView(uiState._data.characterDetails)
+        uiState.data?.characterDetails?.let {
+          marvelAppBarData.title = it.name
+          CharacterDetailView(it)
         }
       }
     }
-    is Result.Error -> {}
+    is Result.Error -> {
+        InfoDialog(
+          title = "Error",
+          message = uiState.message.orEmpty(),
+          onDismissRequest = { navigateBack() }
+        )
+    }
   }
 }

@@ -41,5 +41,8 @@ dependencies {
 
 extra.set(
   JacocoCoverage.coverageDataExtra,
-  CoverageTaskParam(buildDirectory = buildDir)
+  CoverageTaskParam(
+    buildDirectory = buildDir,
+    filesToExclude = listOf("**/*Screen*")
+  )
 )

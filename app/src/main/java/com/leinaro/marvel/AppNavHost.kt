@@ -91,7 +91,8 @@ fun AppNavHost(
 
           CharacterDetailsScreen(
             marvelAppBarData = marvelAppBarData,
-            viewModel = viewModel
+            viewModel = viewModel,
+            navigateBack = { navHostController.popBackStack() }
           )
         }
       }

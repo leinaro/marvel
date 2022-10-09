@@ -18,16 +18,18 @@ import com.leinaro.core.theme.MarvelTheme
 
 @Composable
 fun InfoDialog(
+  title: String = "",
+  message: String = "",
   onDismissRequest: () -> Unit = {}
 ) {
   AlertDialog(
     onDismissRequest = onDismissRequest,
     title = {
-      Text(text = "Marvel")
+      Text(text = title)
     },
     text = {
       Column {
-        Text("Marvel application by Leinaro")
+        Text(message)
       }
     },
     buttons = {

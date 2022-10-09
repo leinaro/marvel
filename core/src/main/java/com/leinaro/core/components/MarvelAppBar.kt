@@ -51,7 +51,11 @@ fun MarvelAppBar(
   }
 
   if (showInfoDialog) {
-    InfoDialog(onDismissRequest = { showInfoDialog = !showInfoDialog })
+    InfoDialog(
+      title = "Marvel",
+      message = "Marvel application by Leinaro",
+      onDismissRequest = { showInfoDialog = !showInfoDialog }
+    )
   }
 }
 
