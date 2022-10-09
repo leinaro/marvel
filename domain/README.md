@@ -1,4 +1,4 @@
-# Domain
+# Domain module
 
 Based on [domain-layer](https://developer.android.com/topic/architecture/domain-layer)
 

@@ -103,6 +103,7 @@ open class CheckCoverage : DefaultTask() {
       logger.quiet("************************")
     } else {
       val exceptionMessage = "COVERAGE FAILED *******"
+      logger.quiet("COVERAGE FAILED *******")
       coverageFailed.forEach {
         logger.quiet(it)
       }
