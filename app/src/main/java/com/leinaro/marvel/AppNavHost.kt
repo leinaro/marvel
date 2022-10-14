@@ -39,7 +39,8 @@ enum class NavPath(
 @ExperimentalAnimationApi
 @Composable
 fun AppNavHost(
-  navHostController: NavHostController, scaffoldState: ScaffoldState
+  navHostController: NavHostController,
+  scaffoldState: ScaffoldState,
 ) {
 
   var marvelAppBarData: MarvelAppBarData by remember { mutableStateOf(MarvelAppBarData.Default) }
@@ -80,9 +81,9 @@ fun AppNavHost(
 
         composable(
           "${NavPath.CharacterDetailView.route}?id={id}", arguments = listOf(
-            navArgument("id") {
-              type = NavType.LongType
-            })
+          navArgument("id") {
+            type = NavType.LongType
+          })
         ) {
           val viewModel = hiltViewModel<CharacterDetailViewModel>()
           marvelAppBarData = MarvelAppBarData.CanGoBack(onBackClick = {
@@ -98,5 +99,4 @@ fun AppNavHost(
       }
     }
   )
-
 }

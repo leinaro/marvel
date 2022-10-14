@@ -1,5 +1,6 @@
 package com.leinaro.domain
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -13,7 +14,7 @@ import dagger.assisted.AssistedInject
 @AssistedFactory
 interface CharactersSourceFactory {
   fun createCharactersSource(
-    nameStartsWith: String? = null
+    nameStartsWith: String? = null,
   ): CharactersSource
 }
 
@@ -47,6 +48,7 @@ class CharactersSource @AssistedInject constructor(
         nextKey = if (response.isNotEmpty()) page.plus(1) else null,
       )
     } catch (e: Exception) {
+      Log.e("iarl", "e: $e")
       LoadResult.Error(e)
     }
   }

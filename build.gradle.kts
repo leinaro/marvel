@@ -13,6 +13,8 @@ buildscript {
     classpath("com.squareup:javapoet:1.13.0")
     classpath("de.mannodermaus.gradle.plugins:android-junit5:1.8.2.1")
     classpath("org.jacoco:org.jacoco.core:${Versions.jacoco}")
+    classpath("com.google.gms:google-services:4.3.13")
+    classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
   }
 }
 
@@ -24,19 +26,3 @@ allprojects {
 }
 
 plugins.apply("plugins.jacoco-global-report")
-/*
-fun subprojectsInclude(vararg includes: String): Set<File> {
-  return subprojects.flatMap {
-    fileTree(it.buildDir) {
-      include(*includes)
-    }.files
-  }.toSet()
-}*/
-/*
-plugins {
-  id("com.android.application") version "7.1.3" apply false
-  id("com.android.library") version "7.1.3" apply false
-  id("org.jetbrains.kotlin.android") version "1.7.10" apply false
-  id("org.jetbrains.kotlin.jvm") version "1.7.10" apply false
-  id("dagger.hilt.android.plugin") apply false
-}*/
